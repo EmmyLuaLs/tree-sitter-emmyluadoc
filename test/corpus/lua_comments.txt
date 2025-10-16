@@ -20,7 +20,8 @@ Lua comment prefix with triple dash
         (type_list
           (type
             (primary_type
-              (basic_type (identifier)))))))))
+              (basic_type
+                (identifier)))))))))
 
 ==================
 Lua comment prefix with single dash
@@ -44,7 +45,8 @@ Lua comment prefix with single dash
         (type_list
           (type
             (primary_type
-              (basic_type (identifier)))))))))
+              (basic_type
+                (identifier)))))))))
 
 ==================
 Lua comment prefix with double dash
@@ -68,7 +70,8 @@ Lua comment prefix with double dash
         (type_list
           (type
             (primary_type
-              (basic_type (identifier)))))))))
+              (basic_type
+                (identifier)))))))))
 
 ==================
 Type continuation basic
@@ -88,19 +91,22 @@ Type continuation basic
         (type_list
           (type
             (primary_type
-              (basic_type (identifier))))))))
+              (basic_type
+                (identifier))))))))
   (type_continuation
     (comment_prefix)
     type: (type_list
       (type
         (primary_type
-          (basic_type (identifier))))))
+          (basic_type
+            (identifier))))))
   (type_continuation
     (comment_prefix)
     type: (type_list
       (type
         (primary_type
-          (basic_type (identifier)))))))
+          (basic_type
+            (identifier)))))))
 
 ==================
 Type continuation with param
@@ -120,13 +126,9 @@ Type continuation with param
         (type_list
           (type
             (primary_type
-              (basic_type (identifier))))))))
-  (type_continuation
-    (comment_prefix)
-    type: (type_list
-      (type
-        (primary_type
-          (basic_type (identifier)))))))
+              (basic_type
+                (identifier))))))
+      description: (description))))
 
 ==================
 Without comment prefix
@@ -148,4 +150,5 @@ Without comment prefix
         (type_list
           (type
             (primary_type
-              (basic_type (identifier)))))))))
+              (basic_type
+                (identifier)))))))))

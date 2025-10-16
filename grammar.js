@@ -128,8 +128,8 @@ module.exports = grammar({
     return_annotation: $ => seq(
       '@return',
       field('type', $.type_annotation_value),
-      optional(field('name', $.identifier)),
-      optional(field('description', $.description))
+      optional(prec(2, field('name', $.identifier))),
+      optional(prec(1, field('description', $.description)))
     ),
 
     // @generic 注解
@@ -396,10 +396,7 @@ module.exports = grammar({
     // 布尔值
     boolean: $ => choice('true', 'false'),
 
-    // 描述（必须在同一行，至少包含一个非空白字符）
-    description: $ => token(seq(
-      /[ \t]+/,  // 至少一个空格或制表符
-      /[^\n\r]+/  // 然后是非换行的内容
-    ))
+    // 描述（必须在同一行，不能以|或,开头，且必须包含空格或非标识符字符）
+    description: $ => token(prec(-1, /[^|\n\r,][^\n\r]*/))
   }
 });
