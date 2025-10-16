@@ -12,7 +12,7 @@ module.exports = grammar({
       $.type_continuation
     )),
 
-    // 可选的 Lua 注释前缀
+    // Lua 注释前缀
     comment_prefix: $ => token(prec(-1, /-{1,3}[ \t]*/)),
 
     // 注解
@@ -51,8 +51,15 @@ module.exports = grammar({
     type_continuation: $ => seq(
       $.comment_prefix,
       '|',
-      field('type', $.type_list)
+      field('type', $.type_list),
+      optional(field('description', $.continuation_description))
     ),
+
+    // 续行描述 (# 开头)
+    continuation_description: $ => token(seq(
+      '#',
+      /[^\n\r]*/
+    )),
 
     // @class 注解
     class_annotation: $ => seq(

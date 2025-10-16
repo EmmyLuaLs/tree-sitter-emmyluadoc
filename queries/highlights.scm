@@ -159,6 +159,9 @@
 (type_continuation
   "|" @punctuation.delimiter)
 
+; 类型续行中的描述
+(continuation_description) @comment
+
 [
   "("
   ")"

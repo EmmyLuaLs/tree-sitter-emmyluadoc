@@ -1062,6 +1062,16 @@
     "type": "type_continuation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "continuation_description",
+            "named": true
+          }
+        ]
+      },
       "type": {
         "multiple": false,
         "required": true,
@@ -1300,6 +1310,10 @@
   {
     "type": "concat",
     "named": false
+  },
+  {
+    "type": "continuation_description",
+    "named": true
   },
   {
     "type": "description",
