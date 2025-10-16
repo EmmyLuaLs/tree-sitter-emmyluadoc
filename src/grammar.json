@@ -1327,7 +1327,7 @@
           "name": "type",
           "content": {
             "type": "SYMBOL",
-            "name": "type"
+            "name": "type_list"
           }
         }
       ]

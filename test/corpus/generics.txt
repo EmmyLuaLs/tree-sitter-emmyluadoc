@@ -102,16 +102,18 @@ Alias with generics
               (table_literal_type
                 (table_field
                   name: (identifier)
-                  type: (type
-                    (primary_type
-                      (basic_type
-                        (identifier)))))
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
                 (table_field
                   name: (identifier)
-                  type: (type
-                    (primary_type
-                      (basic_type
-                        (identifier)))))))))))))
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))))))))))
 
 ================================================================================
 Param with optional marker - correct syntax

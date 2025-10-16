@@ -870,7 +870,7 @@
         "required": true,
         "types": [
           {
-            "type": "type",
+            "type": "type_list",
             "named": true
           }
         ]

@@ -225,3 +225,30 @@
 
 (table_type
   "table" @type.builtin)
+
+; 表字面量类型 (Table Literal Types)
+(table_literal_type
+  "{" @punctuation.bracket
+  "}" @punctuation.bracket)
+
+(table_field
+  name: (identifier) @property
+  ":" @punctuation.delimiter)
+
+; ============================================
+; 泛型参数 (Generic Parameters)
+; ============================================
+
+; @class 和 @alias 的泛型参数定义
+(generic_params
+  "<" @punctuation.bracket
+  ">" @punctuation.bracket)
+
+(generic_params
+  params: (identifier) @type.parameter)
+
+; ============================================
+; nil 字面量 (nil Literal)
+; ============================================
+
+"nil" @constant.builtin

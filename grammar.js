@@ -310,7 +310,7 @@ module.exports = grammar({
     table_field: $ => seq(
       field('name', $.identifier),
       ':',
-      field('type', $.type)
+      field('type', $.type_list)
     ),
 
     // 函数类型
