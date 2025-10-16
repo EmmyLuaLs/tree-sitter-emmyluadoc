@@ -98,9 +98,9 @@ module.exports = grammar({
       )
     ),
 
-    // 字段名（可以带可选标记）
+    // 字段名（可以带可选标记,支持连字符和点）
     field_name: $ => token(seq(
-      /[a-zA-Z_][a-zA-Z0-9_]*/,
+      /[a-zA-Z_][a-zA-Z0-9_\.\-]*/,
       optional('?')
     )),
 
@@ -118,9 +118,9 @@ module.exports = grammar({
       optional(field('description', $.description))
     ),
 
-    // 参数名（可以带可选标记或变参标记）
+    // 参数名（可以带可选标记或变参标记,支持连字符和点）
     param_name: $ => token(choice(
-      seq(/[a-zA-Z_][a-zA-Z0-9_]*/, optional('?')),
+      seq(/[a-zA-Z_][a-zA-Z0-9_\.\-]*/, optional('?')),
       '...'
     )),
 
@@ -339,8 +339,14 @@ module.exports = grammar({
     generic_type: $ => seq(
       field('base', $.identifier),
       '<',
-      field('params', $.type_list),
+      field('params', $.generic_params_types),
       '>'
+    ),
+
+    // 泛型参数类型列表(用逗号分隔)
+    generic_params_types: $ => seq(
+      $.type,
+      repeat(seq(',', $.type))
     ),
 
     // 字面量类型
@@ -351,10 +357,10 @@ module.exports = grammar({
       'nil'
     ),
 
-    // 括号类型
+    // 括号类型（支持联合类型）
     parenthesized_type: $ => seq(
       '(',
-      $.type,
+      $.type_list,
       ')'
     ),
 
@@ -375,8 +381,8 @@ module.exports = grammar({
       'bnot', 'band', 'bor', 'bxor', 'shl', 'shr'
     ),
 
-    // 标识符
-    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_\.]*/,
+    // 标识符 (支持字母、数字、下划线、点和连字符)
+    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_\.\-]*/,
 
     // 字符串
     string: $ => choice(

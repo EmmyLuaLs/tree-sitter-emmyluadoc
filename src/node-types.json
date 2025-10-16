@@ -506,6 +506,21 @@
     }
   },
   {
+    "type": "generic_params_types",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "generic_type",
     "named": true,
     "fields": {
@@ -524,7 +539,7 @@
         "required": true,
         "types": [
           {
-            "type": "type_list",
+            "type": "generic_params_types",
             "named": true
           }
         ]
@@ -703,7 +718,7 @@
       "required": true,
       "types": [
         {
-          "type": "type",
+          "type": "type_list",
           "named": true
         }
       ]

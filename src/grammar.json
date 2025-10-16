@@ -459,7 +459,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+            "value": "[a-zA-Z_][a-zA-Z0-9_\\.\\-]*"
           },
           {
             "type": "CHOICE",
@@ -544,7 +544,7 @@
             "members": [
               {
                 "type": "PATTERN",
-                "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+                "value": "[a-zA-Z_][a-zA-Z0-9_\\.\\-]*"
               },
               {
                 "type": "CHOICE",
@@ -1485,12 +1485,37 @@
           "name": "params",
           "content": {
             "type": "SYMBOL",
-            "name": "type_list"
+            "name": "generic_params_types"
           }
         },
         {
           "type": "STRING",
           "value": ">"
+        }
+      ]
+    },
+    "generic_params_types": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "type"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "type"
+              }
+            ]
+          }
         }
       ]
     },
@@ -1524,7 +1549,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "type"
+          "name": "type_list"
         },
         {
           "type": "STRING",
@@ -1640,7 +1665,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_\\.]*"
+      "value": "[a-zA-Z_][a-zA-Z0-9_\\.\\-]*"
     },
     "string": {
       "type": "CHOICE",

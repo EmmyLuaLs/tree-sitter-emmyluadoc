@@ -53,7 +53,7 @@
 ; ============================================
 
 ((identifier) @type.builtin
-  (#match? @type.builtin "^(string|number|boolean|table|function|thread|userdata|nil|any|unknown|self)$"))
+  (#match? @type.builtin "^(string|number|integer|boolean|table|function|thread|userdata|nil|any|unknown|self)$"))
 
 ; 自定义类型
 (basic_type
@@ -233,7 +233,16 @@
 
 (table_field
   name: (identifier) @property
-  ":" @punctuation.delimiter)
+  ":" @punctuation.delimiter
+  type: (type_list
+    (type
+      (primary_type
+        (basic_type
+          (identifier) @type)))))
+
+; 表字段中的逗号
+(table_literal_type
+  "," @punctuation.delimiter)
 
 ; ============================================
 ; 泛型参数 (Generic Parameters)

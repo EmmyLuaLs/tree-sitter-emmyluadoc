@@ -1,0 +1,155 @@
+================================================================================
+Identifier with hyphen
+================================================================================
+
+---@class my-custom-class
+---@field my-field-name string
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Identifier with multiple hyphens
+================================================================================
+
+---@class my-very-long-class-name
+---@param my-complex-param-name number
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Identifier with dots and hyphens
+================================================================================
+
+---@class my.namespace-class
+---@field my.field-name string
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Type with hyphen in union
+================================================================================
+
+---@type my-type | your-type | their-type
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Alias with hyphenated name and table fields
+================================================================================
+
+---@alias api-response { status-code: number, error-message: string }
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (alias_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (table_literal_type
+                (table_field
+                  name: (identifier)
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                (table_field
+                  name: (identifier)
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))))))))))
+
+================================================================================
+Generic with hyphenated name
+================================================================================
+
+---@class my-container<T>
+---@generic my-type-param
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)
+      generics: (generic_params
+        params: (identifier))))
+  (annotation
+    (comment_prefix)
+    (generic_annotation
+      name: (identifier))))

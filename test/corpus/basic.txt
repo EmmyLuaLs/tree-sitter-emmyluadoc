@@ -204,7 +204,7 @@ Generic type
             (primary_type
               (generic_type
                 base: (identifier)
-                params: (type_list
+                params: (generic_params_types
                   (type
                     (primary_type
                       (basic_type (identifier)))))))))))))

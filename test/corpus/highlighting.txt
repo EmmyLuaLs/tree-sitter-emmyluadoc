@@ -1,0 +1,446 @@
+================================================================================
+Highlighting: Built-in types
+================================================================================
+
+---@type string
+---@type number
+---@type integer
+---@type boolean
+---@type nil
+---@type any
+---@type unknown
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type)))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Highlighting: Literal types
+================================================================================
+
+---@type "string literal"
+---@type 'single quoted'
+---@type 123
+---@type true
+---@type false
+---@type nil
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type
+                (string))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type
+                (string))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type
+                (number))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type
+                (boolean))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type
+                (boolean))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type))))))))
+
+================================================================================
+Highlighting: Table literal with various types
+================================================================================
+
+---@alias MyType { str: string, num: number, int: integer, bool: boolean, opt: string | nil }
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (alias_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (table_literal_type
+                (table_field
+                  name: (identifier)
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                (table_field
+                  name: (identifier)
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                (table_field
+                  name: (identifier)
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                (table_field
+                  name: (identifier)
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                (table_field
+                  name: (identifier)
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))
+                    (type
+                      (primary_type
+                        (literal_type)))))))))))))
+
+================================================================================
+Highlighting: Complex union types
+================================================================================
+
+---@type string | number | boolean | nil
+---@type "success" | "error" | "pending"
+---@type 200 | 404 | 500
+---@type true | false | nil
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))
+          (type
+            (primary_type
+              (literal_type)))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type
+                (string))))
+          (type
+            (primary_type
+              (literal_type
+                (string))))
+          (type
+            (primary_type
+              (literal_type
+                (string))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type
+                (number))))
+          (type
+            (primary_type
+              (literal_type
+                (number))))
+          (type
+            (primary_type
+              (literal_type
+                (number))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (literal_type
+                (boolean))))
+          (type
+            (primary_type
+              (literal_type
+                (boolean))))
+          (type
+            (primary_type
+              (literal_type))))))))
+
+================================================================================
+Highlighting: Array types
+================================================================================
+
+---@type string[]
+---@type (string | number)[]
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (array_type
+              element: (primary_type
+                (basic_type
+                  (identifier)))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (array_type
+              element: (primary_type
+                (parenthesized_type
+                  (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))))))))))
+
+================================================================================
+Highlighting: Function types
+================================================================================
+
+---@type fun(): nil
+---@type fun(x: number): string
+---@type fun(x: number, y: number): number
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (function_type
+                return: (type_list
+                  (type
+                    (primary_type
+                      (literal_type)))))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (function_type
+                params: (param_list
+                  (param_def
+                    name: (identifier)
+                    type: (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                return: (type_list
+                  (type
+                    (primary_type
+                      (basic_type
+                        (identifier))))))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (function_type
+                params: (param_list
+                  (param_def
+                    name: (identifier)
+                    type: (type
+                      (primary_type
+                        (basic_type
+                          (identifier)))))
+                  (param_def
+                    name: (identifier)
+                    type: (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                return: (type_list
+                  (type
+                    (primary_type
+                      (basic_type
+                        (identifier)))))))))))))
+
+================================================================================
+Highlighting: Generic types
+================================================================================
+
+---@type Container<string>
+---@type HashMap<string, number>
+---@class MyClass<T, U, V>
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (generic_type
+                base: (identifier)
+                params: (generic_params_types
+                  (type
+                    (primary_type
+                      (basic_type
+                        (identifier))))))))))))
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (generic_type
+                base: (identifier)
+                params: (generic_params_types
+                  (type
+                    (primary_type
+                      (basic_type
+                        (identifier))))
+                  (type
+                    (primary_type
+                      (basic_type
+                        (identifier))))))))))))
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)
+      generics: (generic_params
+        params: (identifier)
+        params: (identifier)
+        params: (identifier)))))
