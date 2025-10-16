@@ -11,8 +11,6 @@ build/
 *.node
 
 # Tree-sitter generated files
-src/parser.c
-src/tree_sitter/
 Cargo.lock
 
 # Compiled files
