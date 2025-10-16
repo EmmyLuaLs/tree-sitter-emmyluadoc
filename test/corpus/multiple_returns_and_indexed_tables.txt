@@ -1,0 +1,248 @@
+==================
+Multiple return values
+==================
+
+---@return string name, number age
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (return_annotation
+      (return_value
+        type: (return_type_annotation
+          (type_list
+            (type
+              (primary_type
+                (basic_type
+                  (identifier))))))
+        name: (identifier))
+      (return_value
+        type: (return_type_annotation
+          (type_list
+            (type
+              (primary_type
+                (basic_type
+                  (identifier))))))
+        name: (identifier)))))
+
+==================
+Multiple returns without names
+==================
+
+---@return string, number, boolean
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (return_annotation
+      (return_value
+        type: (return_type_annotation
+          (type_list
+            (type
+              (primary_type
+                (basic_type
+                  (identifier)))))))
+      (return_value
+        type: (return_type_annotation
+          (type_list
+            (type
+              (primary_type
+                (basic_type
+                  (identifier)))))))
+      (return_value
+        type: (return_type_annotation
+          (type_list
+            (type
+              (primary_type
+                (basic_type
+                  (identifier))))))))))
+
+==================
+Multiple returns with description
+==================
+
+---@return string name, number age User info
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (return_annotation
+      (return_value
+        type: (return_type_annotation
+          (type_list
+            (type
+              (primary_type
+                (basic_type
+                  (identifier))))))
+        name: (identifier))
+      (return_value
+        type: (return_type_annotation
+          (type_list
+            (type
+              (primary_type
+                (basic_type
+                  (identifier))))))
+        name: (identifier)
+        description: (description)))))
+
+==================
+Table with numeric index
+==================
+
+---@type { [1]: string, [2]: number }
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (table_literal_type
+                (table_field
+                  key: (type_list
+                    (type
+                      (primary_type
+                        (literal_type
+                          (number)))))
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                (table_field
+                  key: (type_list
+                    (type
+                      (primary_type
+                        (literal_type
+                          (number)))))
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))))))))))
+
+==================
+Table with type index
+==================
+
+---@type { [string]: number, [number]: string }
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (table_literal_type
+                (table_field
+                  key: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier)))))
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                (table_field
+                  key: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier)))))
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))))))))))
+
+==================
+Mixed table fields
+==================
+
+---@type { name: string, [1]: number, age: number }
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (table_literal_type
+                (table_field
+                  name: (identifier)
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                (table_field
+                  key: (type_list
+                    (type
+                      (primary_type
+                        (literal_type
+                          (number)))))
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                (table_field
+                  name: (identifier)
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))))))))))
+
+==================
+Table with union type index
+==================
+
+---@type { [string | number]: boolean }
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (table_literal_type
+                (table_field
+                  key: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier)))))
+                  type: (type_list
+                    (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))))))))))

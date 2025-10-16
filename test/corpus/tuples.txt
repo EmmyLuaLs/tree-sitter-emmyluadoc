@@ -103,23 +103,24 @@ Tuple in return
   (annotation
     (comment_prefix)
     (return_annotation
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (tuple_type
-                elements: (tuple_elements
-                  (type_list
-                    (type
-                      (primary_type
-                        (basic_type
-                          (identifier)))))
-                  (type_list
-                    (type
-                      (primary_type
-                        (basic_type
-                          (identifier)))))))))))
-      name: (identifier))))
+      (return_value
+        type: (return_type_annotation
+          (type_list
+            (type
+              (primary_type
+                (tuple_type
+                  elements: (tuple_elements
+                    (type_list
+                      (type
+                        (primary_type
+                          (basic_type
+                            (identifier)))))
+                    (type_list
+                      (type
+                        (primary_type
+                          (basic_type
+                            (identifier)))))))))))
+        name: (identifier)))))
 
 ==================
 Nested tuple

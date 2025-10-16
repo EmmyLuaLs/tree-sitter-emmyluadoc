@@ -127,9 +127,15 @@ module.exports = grammar({
     // @return 注解
     return_annotation: $ => seq(
       '@return',
-      field('type', $.type_annotation_value),
-      optional(prec(2, field('name', $.identifier))),
-      optional(prec(1, field('description', $.description)))
+      $.return_value,
+      repeat(seq(',', $.return_value))
+    ),
+
+    // 返回值定义
+    return_value: $ => seq(
+      field('type', $.return_type_annotation),
+      optional(field('name', $.identifier)),
+      optional(field('description', $.description))
     ),
 
     // @generic 注解
@@ -250,6 +256,12 @@ module.exports = grammar({
     // 类型注解值
     type_annotation_value: $ => $.type_list,
 
+    // 返回类型注解值
+    return_type_annotation: $ => $.type_list,
+
+    // 参数类型注解值
+    param_type_annotation: $ => $.type_list,
+
     // 类型列表
     type_list: $ => prec.left(1, seq(
       $.type,
@@ -308,10 +320,21 @@ module.exports = grammar({
     ),
 
     // 表字段定义
-    table_field: $ => seq(
-      field('name', $.identifier),
-      ':',
-      field('type', $.type_list)
+    table_field: $ => choice(
+      // 命名字段: name: type
+      seq(
+        field('name', $.identifier),
+        ':',
+        field('type', $.type_list)
+      ),
+      // 索引字段: [key]: type
+      seq(
+        '[',
+        field('key', $.type_list),
+        ']',
+        ':',
+        field('type', $.type_list)
+      )
     ),
 
     // 函数类型

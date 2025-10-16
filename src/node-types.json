@@ -770,6 +770,36 @@
   {
     "type": "return_annotation",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "return_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return_type_annotation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "type_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return_value",
+    "named": true,
     "fields": {
       "description": {
         "multiple": false,
@@ -796,7 +826,7 @@
         "required": true,
         "types": [
           {
-            "type": "type_annotation_value",
+            "type": "return_type_annotation",
             "named": true
           }
         ]
@@ -874,9 +904,19 @@
     "type": "table_field",
     "named": true,
     "fields": {
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_list",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",

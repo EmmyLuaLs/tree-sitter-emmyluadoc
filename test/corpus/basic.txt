@@ -26,7 +26,8 @@ Class with parent
       parent: (type_list
         (type
           (primary_type
-            (basic_type (identifier))))))))
+            (basic_type
+              (identifier))))))))
 
 ==================
 Field annotation
@@ -44,7 +45,8 @@ Field annotation
         (type_list
           (type
             (primary_type
-              (basic_type (identifier)))))))))
+              (basic_type
+                (identifier)))))))))
 
 ==================
 Param annotation
@@ -62,7 +64,8 @@ Param annotation
         (type_list
           (type
             (primary_type
-              (basic_type (identifier)))))))))
+              (basic_type
+                (identifier)))))))))
 
 ==================
 Return annotation
@@ -75,11 +78,13 @@ Return annotation
 (source
   (annotation
     (return_annotation
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type (identifier)))))))))
+      (return_value
+        type: (return_type_annotation
+          (type_list
+            (type
+              (primary_type
+                (basic_type
+                  (identifier))))))))))
 
 ==================
 Generic annotation
@@ -115,16 +120,19 @@ Function type
                     name: (identifier)
                     type: (type
                       (primary_type
-                        (basic_type (identifier)))))
+                        (basic_type
+                          (identifier)))))
                   (param_def
                     name: (identifier)
                     type: (type
                       (primary_type
-                        (basic_type (identifier))))))
+                        (basic_type
+                          (identifier))))))
                 return: (type_list
                   (type
                     (primary_type
-                      (basic_type (identifier)))))))))))))
+                      (basic_type
+                        (identifier)))))))))))))
 
 ==================
 Array type
@@ -142,7 +150,8 @@ Array type
           (type
             (array_type
               element: (primary_type
-                (basic_type (identifier))))))))))
+                (basic_type
+                  (identifier))))))))))
 
 ==================
 Union type
@@ -159,10 +168,12 @@ Union type
         (type_list
           (type
             (primary_type
-              (basic_type (identifier))))
+              (basic_type
+                (identifier))))
           (type
             (primary_type
-              (basic_type (identifier)))))))))
+              (basic_type
+                (identifier)))))))))
 
 ==================
 Table type
@@ -182,10 +193,12 @@ Table type
               (table_type
                 key: (type
                   (primary_type
-                    (basic_type (identifier))))
+                    (basic_type
+                      (identifier))))
                 value: (type
                   (primary_type
-                    (basic_type (identifier))))))))))))
+                    (basic_type
+                      (identifier))))))))))))
 
 ==================
 Generic type
@@ -207,7 +220,8 @@ Generic type
                 params: (generic_params_types
                   (type
                     (primary_type
-                      (basic_type (identifier)))))))))))))
+                      (basic_type
+                        (identifier)))))))))))))
 
 ==================
 Deprecated annotation
@@ -249,4 +263,5 @@ Alias annotation
         (type_list
           (type
             (primary_type
-              (basic_type (identifier)))))))))
+              (basic_type
+                (identifier)))))))))
