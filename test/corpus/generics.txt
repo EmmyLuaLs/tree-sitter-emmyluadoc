@@ -1,0 +1,236 @@
+================================================================================
+Class with generics
+================================================================================
+
+---@class Container<T>
+---@field items T[]
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)
+      generics: (generic_params
+        params: (identifier))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (array_type
+              element: (primary_type
+                (basic_type
+                  (identifier))))))))))
+
+================================================================================
+Class with multiple generics
+================================================================================
+
+---@class HashMap<K, V>
+---@field [K] V
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)
+      generics: (generic_params
+        params: (identifier)
+        params: (identifier))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      key_type: (type
+        (primary_type
+          (basic_type
+            (identifier))))
+      value_type: (type
+        (primary_type
+          (basic_type
+            (identifier)))))))
+
+================================================================================
+Alias with generics
+================================================================================
+
+---@alias Callback<T, R> fun(arg: T): R
+---@alias Result<T> { success: boolean, data: T }
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (alias_annotation
+      name: (identifier)
+      generics: (generic_params
+        params: (identifier)
+        params: (identifier))
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (function_type
+                params: (param_list
+                  (param_def
+                    name: (identifier)
+                    type: (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                return: (type_list
+                  (type
+                    (primary_type
+                      (basic_type
+                        (identifier))))))))))))
+  (annotation
+    (comment_prefix)
+    (alias_annotation
+      name: (identifier)
+      generics: (generic_params
+        params: (identifier))
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (table_literal_type
+                (table_field
+                  name: (identifier)
+                  type: (type
+                    (primary_type
+                      (basic_type
+                        (identifier)))))
+                (table_field
+                  name: (identifier)
+                  type: (type
+                    (primary_type
+                      (basic_type
+                        (identifier)))))))))))))
+
+================================================================================
+Param with optional marker - correct syntax
+================================================================================
+
+---@param name string
+---@param age? number
+---@param callback? fun(): nil
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (function_type
+                return: (type_list
+                  (type
+                    (primary_type
+                      (literal_type))))))))))))
+
+================================================================================
+Complex generic class example
+================================================================================
+
+---@class Observable<T>
+---@field private observers fun(value: T)[]
+---@field value T
+
+---@generic T
+---@param initial T
+---@return Observable<T>
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)
+      generics: (generic_params
+        params: (identifier))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (array_type
+              element: (primary_type
+                (function_type
+                  params: (param_list
+                    (param_def
+                      name: (identifier)
+                      type: (type
+                        (primary_type
+                          (basic_type
+                            (identifier))))))))))))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (generic_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (return_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (generic_type
+                base: (identifier)
+                params: (type_list
+                  (type
+                    (primary_type
+                      (basic_type
+                        (identifier)))))))))))))

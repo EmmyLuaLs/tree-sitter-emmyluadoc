@@ -62,7 +62,18 @@ module.exports = grammar({
         seq('(', 'partial', ')')
       ))),
       field('name', $.identifier),
+      optional(field('generics', $.generic_params)),
       optional(seq(':', field('parent', $.type_list)))
+    ),
+
+    // 泛型参数列表（用于 class 和 alias）
+    generic_params: $ => seq(
+      '<',
+      field('params', seq(
+        $.identifier,
+        repeat(seq(',', $.identifier))
+      )),
+      '>'
     ),
 
     // @field 注解
@@ -157,6 +168,7 @@ module.exports = grammar({
     alias_annotation: $ => seq(
       '@alias',
       field('name', $.identifier),
+      optional(field('generics', $.generic_params)),
       field('type', $.type_annotation_value)
     ),
 
@@ -254,6 +266,7 @@ module.exports = grammar({
     primary_type: $ => choice(
       $.basic_type,
       $.table_type,
+      $.table_literal_type,
       $.function_type,
       $.generic_type,
       $.literal_type,
@@ -280,6 +293,24 @@ module.exports = grammar({
         field('value', $.type),
         '>'
       ))
+    ),
+
+    // 表字面量类型 { field: type, ... }
+    table_literal_type: $ => seq(
+      '{',
+      optional(seq(
+        $.table_field,
+        repeat(seq(',', $.table_field)),
+        optional(',')
+      )),
+      '}'
+    ),
+
+    // 表字段定义
+    table_field: $ => seq(
+      field('name', $.identifier),
+      ':',
+      field('type', $.type)
     ),
 
     // 函数类型
@@ -316,7 +347,8 @@ module.exports = grammar({
     literal_type: $ => choice(
       $.string,
       $.number,
-      $.boolean
+      $.boolean,
+      'nil'
     ),
 
     // 括号类型
