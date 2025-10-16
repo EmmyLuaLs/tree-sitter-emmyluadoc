@@ -6,16 +6,16 @@ module.exports = grammar({
   ],
 
   rules: {
-    // 文档的根规则
+    // Root rule of the document
     source: $ => repeat(choice(
       $.annotation,
       $.type_continuation
     )),
 
-    // Lua 注释前缀
+    // Lua comment prefix
     comment_prefix: $ => token(prec(-1, /-{1,3}[ \t]*/)),
 
-    // 注解
+    // Annotation
     annotation: $ => seq(
       optional($.comment_prefix),
       choice(
@@ -47,7 +47,7 @@ module.exports = grammar({
       )
     ),
 
-    // 类型续行 (--- | <type>)
+    // Type continuation (--- | <type>)
     type_continuation: $ => seq(
       $.comment_prefix,
       '|',
@@ -55,25 +55,26 @@ module.exports = grammar({
       optional(field('description', $.continuation_description))
     ),
 
-    // 续行描述 (# 开头)
+    // Continuation description (starts with #)
     continuation_description: $ => token(seq(
       '#',
       /[^\n\r]*/
     )),
 
-    // @class 注解
+    // @class annotation
     class_annotation: $ => seq(
       '@class',
       optional(field('modifier', choice(
         seq('(', 'exact', ')'),
-        seq('(', 'partial', ')')
+        seq('(', 'partial', ')'),
+        seq('(', 'constructor', ')')
       ))),
       field('name', $.identifier),
       optional(field('generics', $.generic_params)),
       optional(seq(':', field('parent', $.type_list)))
     ),
 
-    // 泛型参数列表（用于 class 和 alias）
+    // Generic parameter list (for class and alias)
     generic_params: $ => seq(
       '<',
       field('params', seq(
@@ -83,18 +84,18 @@ module.exports = grammar({
       '>'
     ),
 
-    // @field 注解
+    // @field annotation
     field_annotation: $ => seq(
       '@field',
       optional(field('visibility', choice('public', 'private', 'protected', 'package'))),
       choice(
-        // 命名字段: [access] name[?] type [description]
+        // Named field: [access] name[?] type [description]
         seq(
           field('name', $.field_name),
           field('type', $.type_annotation_value),
           optional(field('description', $.description))
         ),
-        // 索引签名: [access] [key_type] value_type [description]
+        // Index signature: [access] [key_type] value_type [description]
         seq(
           '[',
           field('key_type', $.type),
@@ -105,19 +106,19 @@ module.exports = grammar({
       )
     ),
 
-    // 字段名（可以带可选标记,支持连字符和点）
+    // Field name (can have optional marker, supports hyphens and dots)
     field_name: $ => token(seq(
       /[a-zA-Z_][a-zA-Z0-9_\.\-]*/,
       optional('?')
     )),
 
-    // @type 注解
+    // @type annotation
     type_annotation: $ => seq(
       '@type',
       field('type', $.type_annotation_value)
     ),
 
-    // @param 注解
+    // @param annotation
     param_annotation: $ => seq(
       '@param',
       field('name', $.param_name),
@@ -125,59 +126,59 @@ module.exports = grammar({
       optional(field('description', $.description))
     ),
 
-    // 参数名（可以带可选标记或变参标记,支持连字符和点）
+    // Parameter name (can have optional marker or vararg marker, supports hyphens and dots)
     param_name: $ => token(choice(
       seq(/[a-zA-Z_][a-zA-Z0-9_\.\-]*/, optional('?')),
       '...'
     )),
 
-    // @return 注解
+    // @return annotation
     return_annotation: $ => seq(
       '@return',
       $.return_value,
       repeat(seq(',', $.return_value))
     ),
 
-    // 返回值定义
+    // Return value definition
     return_value: $ => seq(
       field('type', $.return_type_annotation),
       optional(field('name', $.identifier)),
       optional(field('description', $.description))
     ),
 
-    // @generic 注解
+    // @generic annotation
     generic_annotation: $ => seq(
       '@generic',
       field('name', $.identifier),
       optional(seq(':', field('constraint', $.type_annotation_value)))
     ),
 
-    // @vararg 注解
+    // @vararg annotation
     vararg_annotation: $ => seq(
       '@vararg',
       field('type', $.type_annotation_value)
     ),
 
-    // @overload 注解
+    // @overload annotation
     overload_annotation: $ => seq(
       '@overload',
       field('signature', $.function_type)
     ),
 
-    // @deprecated 注解
+    // @deprecated annotation
     deprecated_annotation: $ => seq(
       '@deprecated',
       optional(field('description', $.description))
     ),
 
-    // @see 注解
+    // @see annotation
     see_annotation: $ => seq(
       '@see',
       field('reference', $.identifier),
       optional(field('description', $.description))
     ),
 
-    // @alias 注解
+    // @alias annotation
     alias_annotation: $ => seq(
       '@alias',
       field('name', $.identifier),
@@ -185,67 +186,68 @@ module.exports = grammar({
       field('type', $.type_annotation_value)
     ),
 
-    // @enum 注解
+    // @enum annotation
     enum_annotation: $ => seq(
       '@enum',
+      optional(field('modifier', seq('(', 'key', ')'))),
       field('name', $.identifier)
     ),
 
-    // @module 注解
+    // @module annotation
     module_annotation: $ => seq(
       '@module',
       field('name', $.string)
     ),
 
-    // @private 注解
+    // @private annotation
     private_annotation: $ => '@private',
 
-    // @protected 注解
+    // @protected annotation
     protected_annotation: $ => '@protected',
 
-    // @public 注解
+    // @public annotation
     public_annotation: $ => '@public',
 
-    // @package 注解
+    // @package annotation
     package_annotation: $ => '@package',
 
-    // @async 注解
+    // @async annotation
     async_annotation: $ => '@async',
 
-    // @cast 注解
+    // @cast annotation
     cast_annotation: $ => seq(
       '@cast',
       field('name', $.identifier),
       field('type', $.type_annotation_value)
     ),
 
-    // @nodiscard 注解
+    // @nodiscard annotation
     nodiscard_annotation: $ => '@nodiscard',
 
-    // @meta 注解
+    // @meta annotation
     meta_annotation: $ => '@meta',
 
-    // @version 注解
+    // @version annotation
     version_annotation: $ => seq(
       '@version',
       field('version', choice($.identifier, $.string, $.version_range)),
       optional(field('description', $.description))
     ),
 
-    // 版本范围（如 >=5.1, <5.4）
+    // Version range (e.g. >=5.1, <5.4)
     version_range: $ => token(seq(
       choice('>', '<', '>=', '<='),
       /\d+(\.\d+)*/
     )),
 
-    // @diagnostic 注解
+    // @diagnostic annotation
     diagnostic_annotation: $ => seq(
       '@diagnostic',
       field('action', choice('disable', 'enable', 'disable-next-line', 'disable-line')),
       optional(seq(':', field('diagnostics', $.diagnostic_list)))
     ),
 
-    // @operator 注解
+    // @operator annotation
     operator_annotation: $ => seq(
       '@operator',
       '(',
@@ -254,34 +256,34 @@ module.exports = grammar({
       optional(seq(':', field('return_type', $.type_annotation_value)))
     ),
 
-    // @source 注解
+    // @source annotation
     source_annotation: $ => seq(
       '@source',
       field('source', $.string)
     ),
 
-    // 类型注解值
+    // Type annotation value
     type_annotation_value: $ => $.type_list,
 
-    // 返回类型注解值
+    // Return type annotation value
     return_type_annotation: $ => $.type_list,
 
-    // 参数类型注解值
+    // Parameter type annotation value
     param_type_annotation: $ => $.type_list,
 
-    // 类型列表
+    // Type list
     type_list: $ => prec.left(1, seq(
       $.type,
       repeat(prec.left(1, seq('|', $.type)))
     )),
 
-    // 类型
+    // Type
     type: $ => prec.left(choice(
       $.array_type,
       $.primary_type
     )),
 
-    // 主要类型（不包括数组）
+    // Primary type (excluding arrays)
     primary_type: $ => choice(
       $.basic_type,
       $.table_type,
@@ -293,17 +295,17 @@ module.exports = grammar({
       $.tuple_type
     ),
 
-    // 基础类型
+    // Basic type
     basic_type: $ => $.identifier,
 
-    // 数组类型
+    // Array type
     array_type: $ => prec(1, seq(
       field('element', $.primary_type),
       '[',
       ']'
     )),
 
-    // 表类型
+    // Table type
     table_type: $ => seq(
       'table',
       optional(seq(
@@ -315,7 +317,7 @@ module.exports = grammar({
       ))
     ),
 
-    // 表字面量类型 { field: type, ... }
+    // Table literal type { field: type, ... }
     table_literal_type: $ => seq(
       '{',
       optional(seq(
@@ -326,15 +328,15 @@ module.exports = grammar({
       '}'
     ),
 
-    // 表字段定义
+    // Table field definition
     table_field: $ => choice(
-      // 命名字段: name: type
+      // Named field: name: type
       seq(
         field('name', $.identifier),
         ':',
         field('type', $.type_list)
       ),
-      // 索引字段: [key]: type
+      // Index field: [key]: type
       seq(
         '[',
         field('key', $.type_list),
@@ -344,7 +346,7 @@ module.exports = grammar({
       )
     ),
 
-    // 函数类型
+    // Function type
     function_type: $ => seq(
       'fun',
       '(',
@@ -353,20 +355,20 @@ module.exports = grammar({
       optional(seq(':', field('return', $.type_list)))
     ),
 
-    // 参数列表
+    // Parameter list
     param_list: $ => seq(
       $.param_def,
       repeat(seq(',', $.param_def))
     ),
 
-    // 参数定义
+    // Parameter definition
     param_def: $ => seq(
       field('name', $.identifier),
       optional(seq(':', field('type', $.type))),
       optional('?')
     ),
 
-    // 泛型类型
+    // Generic type
     generic_type: $ => seq(
       field('base', $.identifier),
       '<',
@@ -374,13 +376,13 @@ module.exports = grammar({
       '>'
     ),
 
-    // 泛型参数类型列表(用逗号分隔)
+    // Generic parameter type list (comma-separated)
     generic_params_types: $ => seq(
       $.type,
       repeat(seq(',', $.type))
     ),
 
-    // 字面量类型
+    // Literal type
     literal_type: $ => choice(
       $.string,
       $.number,
@@ -388,34 +390,34 @@ module.exports = grammar({
       'nil'
     ),
 
-    // 括号类型（支持联合类型）
+    // Parenthesized type (supports union types)
     parenthesized_type: $ => seq(
       '(',
       $.type_list,
       ')'
     ),
 
-    // 元组类型
+    // Tuple type
     tuple_type: $ => seq(
       '[',
       field('elements', $.tuple_elements),
       ']'
     ),
 
-    // 元组元素列表
+    // Tuple element list
     tuple_elements: $ => seq(
       $.type_list,
       repeat(seq(',', $.type_list)),
-      optional(',')  // 支持尾随逗号
+      optional(',')  // Support trailing comma
     ),
 
-    // 诊断列表
+    // Diagnostic list
     diagnostic_list: $ => seq(
       $.identifier,
       repeat(seq(',', $.identifier))
     ),
 
-    // 操作符
+    // Operator
     operator: $ => choice(
       'call',
       'add', 'sub', 'mul', 'div', 'mod', 'pow',
@@ -426,22 +428,22 @@ module.exports = grammar({
       'bnot', 'band', 'bor', 'bxor', 'shl', 'shr'
     ),
 
-    // 标识符 (支持字母、数字、下划线、点和连字符)
+    // Identifier (supports letters, numbers, underscores, dots and hyphens)
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_\.\-]*/,
 
-    // 字符串
+    // String
     string: $ => choice(
       seq('"', /[^"]*/, '"'),
       seq("'", /[^']*/, "'")
     ),
 
-    // 数字
+    // Number
     number: $ => /\d+(\.\d+)?/,
 
-    // 布尔值
+    // Boolean
     boolean: $ => choice('true', 'false'),
 
-    // 描述（必须在同一行，不能以|或,开头，且必须包含空格或非标识符字符）
+    // Description (must be on the same line, cannot start with | or ,)
     description: $ => token(prec(-1, /[^|\n\r,][^\n\r]*/))
   }
 });

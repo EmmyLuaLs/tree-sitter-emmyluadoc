@@ -239,6 +239,10 @@
             "named": false
           },
           {
+            "type": "constructor",
+            "named": false
+          },
+          {
             "type": "exact",
             "named": false
           },
@@ -343,6 +347,24 @@
     "type": "enum_annotation",
     "named": true,
     "fields": {
+      "modifier": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "key",
+            "named": false
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1312,6 +1334,10 @@
     "named": false
   },
   {
+    "type": "constructor",
+    "named": false
+  },
+  {
     "type": "continuation_description",
     "named": true
   },
@@ -1362,6 +1388,10 @@
   {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "key",
+    "named": false
   },
   {
     "type": "le",
