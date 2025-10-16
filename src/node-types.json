@@ -30,7 +30,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -47,6 +47,10 @@
         },
         {
           "type": "class_annotation",
+          "named": true
+        },
+        {
+          "type": "comment_prefix",
           "named": true
         },
         {
@@ -692,6 +696,10 @@
         {
           "type": "annotation",
           "named": true
+        },
+        {
+          "type": "type_continuation",
+          "named": true
         }
       ]
     }
@@ -772,6 +780,32 @@
       "types": [
         {
           "type": "type_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_continuation",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_list",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "comment_prefix",
           "named": true
         }
       ]
@@ -963,6 +997,10 @@
   {
     "type": "call",
     "named": false
+  },
+  {
+    "type": "comment_prefix",
+    "named": true
   },
   {
     "type": "concat",

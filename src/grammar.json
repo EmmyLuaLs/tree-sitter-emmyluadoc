@@ -5,108 +5,166 @@
     "source": {
       "type": "REPEAT",
       "content": {
-        "type": "SYMBOL",
-        "name": "annotation"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "annotation"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "type_continuation"
+          }
+        ]
+      }
+    },
+    "comment_prefix": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "-{1,3}[ \\t]*"
+        }
       }
     },
     "annotation": {
-      "type": "CHOICE",
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "comment_prefix"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "class_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "field_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "type_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "param_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "return_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "generic_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "vararg_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "overload_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "deprecated_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "see_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "alias_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "enum_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "module_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "private_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "protected_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "public_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "package_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "async_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "cast_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "nodiscard_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "meta_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "version_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "diagnostic_annotation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "operator_annotation"
+            }
+          ]
+        }
+      ]
+    },
+    "type_continuation": {
+      "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "class_annotation"
+          "name": "comment_prefix"
         },
         {
-          "type": "SYMBOL",
-          "name": "field_annotation"
+          "type": "STRING",
+          "value": "|"
         },
         {
-          "type": "SYMBOL",
-          "name": "type_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "param_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "return_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "generic_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "vararg_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "overload_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "deprecated_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "see_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "alias_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "enum_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "module_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "private_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "protected_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "public_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "package_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "async_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cast_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "nodiscard_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "meta_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "version_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "diagnostic_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "operator_annotation"
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_list"
+          }
         }
       ]
     },

@@ -1,0 +1,151 @@
+==================
+Lua comment prefix with triple dash
+==================
+
+---@class Person
+---@field name string
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier)))))))))
+
+==================
+Lua comment prefix with single dash
+==================
+
+-@class Student
+-@field grade number
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier)))))))))
+
+==================
+Lua comment prefix with double dash
+==================
+
+--@class Teacher
+--@field subject string
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier)))))))))
+
+==================
+Type continuation basic
+==================
+
+---@type string
+--- | number
+--- | boolean
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier))))))))
+  (type_continuation
+    (comment_prefix)
+    type: (type_list
+      (type
+        (primary_type
+          (basic_type (identifier))))))
+  (type_continuation
+    (comment_prefix)
+    type: (type_list
+      (type
+        (primary_type
+          (basic_type (identifier)))))))
+
+==================
+Type continuation with param
+==================
+
+---@param value string
+--- | number
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier))))))))
+  (type_continuation
+    (comment_prefix)
+    type: (type_list
+      (type
+        (primary_type
+          (basic_type (identifier)))))))
+
+==================
+Without comment prefix
+==================
+
+@class Person
+@field name string
+
+---
+
+(source
+  (annotation
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (field_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier)))))))))

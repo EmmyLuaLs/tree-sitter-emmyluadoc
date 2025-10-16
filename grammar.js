@@ -7,34 +7,50 @@ module.exports = grammar({
 
   rules: {
     // 文档的根规则
-    source: $ => repeat($.annotation),
+    source: $ => repeat(choice(
+      $.annotation,
+      $.type_continuation
+    )),
+
+    // 可选的 Lua 注释前缀
+    comment_prefix: $ => token(prec(-1, /-{1,3}[ \t]*/)),
 
     // 注解
-    annotation: $ => choice(
-      $.class_annotation,
-      $.field_annotation,
-      $.type_annotation,
-      $.param_annotation,
-      $.return_annotation,
-      $.generic_annotation,
-      $.vararg_annotation,
-      $.overload_annotation,
-      $.deprecated_annotation,
-      $.see_annotation,
-      $.alias_annotation,
-      $.enum_annotation,
-      $.module_annotation,
-      $.private_annotation,
-      $.protected_annotation,
-      $.public_annotation,
-      $.package_annotation,
-      $.async_annotation,
-      $.cast_annotation,
-      $.nodiscard_annotation,
-      $.meta_annotation,
-      $.version_annotation,
-      $.diagnostic_annotation,
-      $.operator_annotation,
+    annotation: $ => seq(
+      optional($.comment_prefix),
+      choice(
+        $.class_annotation,
+        $.field_annotation,
+        $.type_annotation,
+        $.param_annotation,
+        $.return_annotation,
+        $.generic_annotation,
+        $.vararg_annotation,
+        $.overload_annotation,
+        $.deprecated_annotation,
+        $.see_annotation,
+        $.alias_annotation,
+        $.enum_annotation,
+        $.module_annotation,
+        $.private_annotation,
+        $.protected_annotation,
+        $.public_annotation,
+        $.package_annotation,
+        $.async_annotation,
+        $.cast_annotation,
+        $.nodiscard_annotation,
+        $.meta_annotation,
+        $.version_annotation,
+        $.diagnostic_annotation,
+        $.operator_annotation,
+      )
+    ),
+
+    // 类型续行 (--- | <type>)
+    type_continuation: $ => seq(
+      $.comment_prefix,
+      '|',
+      field('type', $.type_list)
     ),
 
     // @class 注解
