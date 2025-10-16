@@ -5,12 +5,21 @@ module.exports = grammar({
     /\s/
   ],
 
+  word: $ => $.identifier,
+
   rules: {
     // Root rule of the document
     source: $ => repeat(choice(
       $.annotation,
-      $.type_continuation
+      $.type_continuation,
+      $.text_line
     )),
+
+    // Plain text line (fallback - matches lines that don't start with comment/annotation markers)
+    text_line: $ => token(prec(-100, seq(
+      /[^-@\s\n\r]/,  // Must NOT start with -, @ or whitespace
+      /[^\n\r]*/      // Rest of the line
+    ))),
 
     // Lua comment prefix
     comment_prefix: $ => token(prec(-1, /-{1,3}[ \t]*/)),
@@ -443,7 +452,10 @@ module.exports = grammar({
     // Boolean
     boolean: $ => choice('true', 'false'),
 
-    // Description (must be on the same line, cannot start with | or ,)
-    description: $ => token(prec(-1, /[^|\n\r,][^\n\r]*/))
+    // Description (must be on the same line, preceded by space, cannot start with | or ,)
+    description: $ => token(prec(-1, seq(
+      /[ \t]+/,  // Must have at least one space/tab before description
+      /[^|\n\r,][^\n\r]*/
+    )))
   }
 });

@@ -1,0 +1,74 @@
+==================
+Text line not starting with comment or @
+==================
+
+jfoiawoifjoiw @class MyClass
+---@class Person
+
+---
+
+(source
+  (text_line)
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier))))
+
+==================
+Multiple text lines and annotations
+==================
+
+This is a normal text line
+Another text line here
+---@class MyClass
+---@field name string
+Random text in the middle
+@param value string
+Some more text
+
+---
+
+(source
+  (text_line)
+  (text_line)
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (text_line)
+  (annotation
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (text_line))
+
+==================
+Text line with @ in the middle
+==================
+
+Some text @class should not be parsed
+---@class Person
+
+---
+
+(source
+  (text_line)
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier))))

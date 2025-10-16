@@ -25,8 +25,24 @@ Param with union type and literals
           (type
             (primary_type
               (literal_type
-                (string))))))
-      description: (description))))
+                (string))))))))
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))
+          (type
+            (primary_type
+              (literal_type)))
+          (type
+            (primary_type
+              (literal_type
+                (boolean)))))))))
 
 ================================================================================
 Return with name and description

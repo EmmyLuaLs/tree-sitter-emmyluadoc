@@ -12,6 +12,8 @@ This project provides Tree-sitter grammar support for EmmyLua documentation comm
 - 📝 **Lua Comment Prefix Support** - Supports `-`, `--` and `---` prefixes
 - 🔄 **Type Continuation** - Supports multi-line union types with `--- | type`
 - 🎨 **Syntax Highlighting** - Complete query file support
+- 🛡️ **Line-start Detection** - Only parses annotations at the beginning of lines
+- 📄 **Text Line Fallback** - Non-annotation lines are captured as text_line nodes
 - 🦀 **Multi-language Bindings** - Node.js, Rust and Python
 - ⚡ **High Performance** - 3000+ bytes/ms parsing speed
 - 📋 **ABI 15 Support** - Uses the latest tree-sitter ABI version
@@ -85,6 +87,17 @@ end
 # No prefix (still supported)
 @class Admin
 ```
+
+### Line-start Detection (NEW!)
+```lua
+---@class Person    ← Parsed as annotation (starts with ---)
+@class Student      ← Parsed as annotation (starts with @)
+
+Some text @class    ← Parsed as text_line (@ not at line start)
+Random comment      ← Parsed as text_line (doesn't start with - or @)
+```
+
+This ensures that only actual annotations are highlighted, avoiding false positives in regular text that happens to contain `@class` or similar keywords.
 
 ## Supported annotations
 
