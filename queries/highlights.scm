@@ -169,6 +169,19 @@
 ] @punctuation.bracket
 
 ; ============================================
+; 元组类型 (Tuple Types)
+; ============================================
+
+; 元组括号
+(tuple_type
+  "[" @punctuation.bracket
+  "]" @punctuation.bracket)
+
+; 元组元素中的逗号
+(tuple_elements
+  "," @punctuation.delimiter)
+
+; ============================================
 ; 引用和诊断 (References and Diagnostics)
 ; ============================================
 

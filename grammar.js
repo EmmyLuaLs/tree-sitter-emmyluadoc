@@ -270,7 +270,8 @@ module.exports = grammar({
       $.function_type,
       $.generic_type,
       $.literal_type,
-      $.parenthesized_type
+      $.parenthesized_type,
+      $.tuple_type
     ),
 
     // 基础类型
@@ -362,6 +363,20 @@ module.exports = grammar({
       '(',
       $.type_list,
       ')'
+    ),
+
+    // 元组类型
+    tuple_type: $ => seq(
+      '[',
+      field('elements', $.tuple_elements),
+      ']'
+    ),
+
+    // 元组元素列表
+    tuple_elements: $ => seq(
+      $.type_list,
+      repeat(seq(',', $.type_list)),
+      optional(',')  // 支持尾随逗号
     ),
 
     // 诊断列表
