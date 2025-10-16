@@ -1,0 +1,379 @@
+================================================================================
+Class with exact modifier
+================================================================================
+
+---@class (exact) Point
+---@field x number
+---@field y number
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Class with partial modifier
+================================================================================
+
+---@class (partial) Animal
+---@field weight number Additional field
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description))))
+
+================================================================================
+Field with index signature
+================================================================================
+
+---@class Configuration
+---@field host string
+---@field [string] any Other config items
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      key_type: (type
+        (primary_type
+          (basic_type
+            (identifier))))
+      value_type: (type
+        (primary_type
+          (basic_type
+            (identifier))))
+      description: (description))))
+
+================================================================================
+Field with optional marker
+================================================================================
+
+---@class User
+---@field name string
+---@field email? string Optional email
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description))))
+
+================================================================================
+Param with optional marker
+================================================================================
+
+---@param name string Username
+---@param age? number Optional age
+---@param ... any Variadic params
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description)))
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description)))
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description))))
+
+================================================================================
+Return with name and description
+================================================================================
+
+---@return boolean success Whether succeeded
+---@return string | nil error Error message
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (return_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description)))
+  (annotation
+    (comment_prefix)
+    (return_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description))))
+
+================================================================================
+Deprecated with description
+================================================================================
+
+---@deprecated Use newFunction instead
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (deprecated_annotation
+      description: (description))))
+
+================================================================================
+Version with range
+================================================================================
+
+---@version >=5.1
+---@version <5.4
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (version_annotation
+      version: (version_range)))
+  (annotation
+    (comment_prefix)
+    (version_annotation
+      version: (version_range))))
+
+================================================================================
+Operator with new syntax
+================================================================================
+
+---@operator(add): Vector
+---@operator(call): function
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (operator_annotation
+      op: (operator)
+      return_type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (operator_annotation
+      op: (operator)
+      return_type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Source annotation
+================================================================================
+
+---@source "path/to/source.lua"
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (source_annotation
+      source: (string))))
+
+================================================================================
+Complex combination
+================================================================================
+
+---@class (exact) BankAccount
+---@field public balance number Account balance
+---@field private pin string
+---@field [string] any
+
+---@param amount? number Deposit amount
+---@return boolean success
+---@return string | nil error
+---@deprecated Use deposit2 instead
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      key_type: (type
+        (primary_type
+          (basic_type
+            (identifier))))
+      value_type: (type
+        (primary_type
+          (basic_type
+            (identifier))))))
+  (annotation
+    (comment_prefix)
+    (param_annotation
+      name: (param_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description)))
+  (annotation
+    (comment_prefix)
+    (return_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (return_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))
+      description: (description)))
+  (annotation
+    (comment_prefix)
+    (deprecated_annotation
+      description: (description))))

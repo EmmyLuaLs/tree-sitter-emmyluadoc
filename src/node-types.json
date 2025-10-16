@@ -122,6 +122,10 @@
           "named": true
         },
         {
+          "type": "source_annotation",
+          "named": true
+        },
+        {
           "type": "type_annotation",
           "named": true
         },
@@ -202,6 +206,28 @@
     "type": "class_annotation",
     "named": true,
     "fields": {
+      "modifier": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "exact",
+            "named": false
+          },
+          {
+            "type": "partial",
+            "named": false
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -218,6 +244,22 @@
         "types": [
           {
             "type": "type_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "deprecated_annotation",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
             "named": true
           }
         ]
@@ -297,12 +339,32 @@
     "type": "field_annotation",
     "named": true,
     "fields": {
-      "name": {
+      "description": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
+      "key_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "field_name",
             "named": true
           }
         ]
@@ -313,6 +375,16 @@
         "types": [
           {
             "type": "type_annotation_value",
+            "named": true
+          }
+        ]
+      },
+      "value_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
             "named": true
           }
         ]
@@ -486,16 +558,6 @@
             "named": true
           }
         ]
-      },
-      "type": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "type_annotation_value",
-            "named": true
-          }
-        ]
       }
     }
   },
@@ -519,29 +581,29 @@
     "type": "param_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "param_name",
             "named": true
-          }
-        ]
-      },
-      "nullable": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "?",
-            "named": false
           }
         ]
       },
       "type": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "type_annotation_value",
@@ -646,6 +708,16 @@
     "type": "return_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": false,
@@ -672,6 +744,16 @@
     "type": "see_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "reference": {
         "multiple": false,
         "required": true,
@@ -702,6 +784,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "source_annotation",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -846,6 +944,16 @@
     "type": "version_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "version": {
         "multiple": false,
         "required": true,
@@ -856,6 +964,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "version_range",
             "named": true
           }
         ]
@@ -911,6 +1023,10 @@
     "named": false
   },
   {
+    "type": "@deprecated",
+    "named": false
+  },
+  {
     "type": "@diagnostic",
     "named": false
   },
@@ -948,6 +1064,10 @@
   },
   {
     "type": "@see",
+    "named": false
+  },
+  {
+    "type": "@source",
     "named": false
   },
   {
@@ -1007,7 +1127,7 @@
     "named": false
   },
   {
-    "type": "deprecated_annotation",
+    "type": "description",
     "named": true
   },
   {
@@ -1035,8 +1155,16 @@
     "named": false
   },
   {
+    "type": "exact",
+    "named": false
+  },
+  {
     "type": "false",
     "named": false
+  },
+  {
+    "type": "field_name",
+    "named": true
   },
   {
     "type": "fun",
@@ -1085,6 +1213,14 @@
   {
     "type": "package_annotation",
     "named": true
+  },
+  {
+    "type": "param_name",
+    "named": true
+  },
+  {
+    "type": "partial",
+    "named": false
   },
   {
     "type": "pow",
@@ -1137,6 +1273,10 @@
   {
     "type": "unm",
     "named": false
+  },
+  {
+    "type": "version_range",
+    "named": true
   },
   {
     "type": "|",

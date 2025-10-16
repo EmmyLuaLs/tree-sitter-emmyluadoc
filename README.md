@@ -1,21 +1,46 @@
 # tree-sitter-emmyluadoc
 
-A Tree-sitter grammar for parsing EmmyLua documentation comments.
+一个用于解析 EmmyLua 文档注释的 Tree-sitter 语法。
 
-## Overview
+## 简介
 
-This project provides Tree-sitter grammar support for EmmyLua documentation comments. EmmyLua is an annotation format for documenting Lua code, widely used in Lua IDEs and editors.
+这个项目为 EmmyLua 文档注释提供了 Tree-sitter 语法支持。EmmyLua 是一种用于 Lua 代码文档化的注解格式，广泛用于 Lua IDE 和编辑器中。
 
-## ✨ Features
+## ✨ 特性
 
-- 🎯 **Complete annotation support** - 25+ annotation types
-- 📝 **Lua comment prefix support** - Works with `-`, `--`, and `---` prefixes
-- 🔄 **Type continuation** - Multi-line union types with `--- | type`
-- 🎨 **Syntax highlighting** - Full query support for highlighting
-- 🦀 **Multi-language bindings** - Node.js, Rust, and Python
-- ⚡ **High performance** - 3000+ bytes/ms parsing speed
+- 🎯 **完整的注解支持** - 25+ 种注解类型
+- 📝 **Lua 注释前缀支持** - 支持 `-`、`--` 和 `---` 前缀
+- 🔄 **类型续行** - 支持 `--- | type` 的多行联合类型
+- 🎨 **语法高亮** - 完整的查询文件支持
+- 🦀 **多语言绑定** - Node.js、Rust 和 Python
+- ⚡ **高性能** - 3000+ bytes/ms 解析速度
+- 📋 **ABI 15 支持** - 使用最新的 tree-sitter ABI 版本
 
-## 💡 Quick Examples
+## 📋 配置文件
+
+本项目包含 `tree-sitter.json` 配置文件，用于：
+- ✅ 使用 ABI 版本 15（最新版本）
+- ✅ 自动配置查询文件
+- ✅ 定义项目元数据
+- ✅ 语言注入支持（`injection-regex`）
+- ✅ 更好的编辑器集成
+
+详见 [TREE_SITTER_JSON.md](TREE_SITTER_JSON.md)
+
+## 🔄 语言注入
+
+`injection-regex` 字段允许 EmmyLuaDoc 语法被注入到 Lua 文件的注释中：
+
+```lua
+-- 在 Lua 文件中，这些注释会自动使用 EmmyLuaDoc 语法高亮
+---@class Person     ← 自动检测并应用 emmyluadoc 语法
+---@field name string
+---@field age number
+```
+
+这需要在 Lua 语法的 `injections.scm` 中配置相应的注入规则。参见 `examples/lua_injections_example.scm`。
+
+## 💡 快速示例
 
 ### Basic Annotations
 ```lua

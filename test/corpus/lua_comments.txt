@@ -15,7 +15,7 @@ Lua comment prefix with triple dash
   (annotation
     (comment_prefix)
     (field_annotation
-      name: (identifier)
+      name: (field_name)
       type: (type_annotation_value
         (type_list
           (type
@@ -39,7 +39,7 @@ Lua comment prefix with single dash
   (annotation
     (comment_prefix)
     (field_annotation
-      name: (identifier)
+      name: (field_name)
       type: (type_annotation_value
         (type_list
           (type
@@ -63,7 +63,7 @@ Lua comment prefix with double dash
   (annotation
     (comment_prefix)
     (field_annotation
-      name: (identifier)
+      name: (field_name)
       type: (type_annotation_value
         (type_list
           (type
@@ -115,7 +115,7 @@ Type continuation with param
   (annotation
     (comment_prefix)
     (param_annotation
-      name: (identifier)
+      name: (param_name)
       type: (type_annotation_value
         (type_list
           (type
@@ -143,7 +143,7 @@ Without comment prefix
       name: (identifier)))
   (annotation
     (field_annotation
-      name: (identifier)
+      name: (field_name)
       type: (type_annotation_value
         (type_list
           (type

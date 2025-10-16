@@ -78,10 +78,10 @@
 ; ============================================
 
 (field_annotation
-  name: (identifier) @variable.member)
+  name: (field_name) @variable.member)
 
 (param_annotation
-  name: (identifier) @variable.parameter)
+  name: (param_name) @variable.parameter)
 
 (return_annotation
   name: (identifier)? @variable.parameter)

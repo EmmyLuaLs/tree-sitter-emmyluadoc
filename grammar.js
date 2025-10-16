@@ -43,6 +43,7 @@ module.exports = grammar({
         $.version_annotation,
         $.diagnostic_annotation,
         $.operator_annotation,
+        $.source_annotation,
       )
     ),
 
@@ -56,6 +57,10 @@ module.exports = grammar({
     // @class 注解
     class_annotation: $ => seq(
       '@class',
+      optional(field('modifier', choice(
+        seq('(', 'exact', ')'),
+        seq('(', 'partial', ')')
+      ))),
       field('name', $.identifier),
       optional(seq(':', field('parent', $.type_list)))
     ),
@@ -64,9 +69,29 @@ module.exports = grammar({
     field_annotation: $ => seq(
       '@field',
       optional(field('visibility', choice('public', 'private', 'protected', 'package'))),
-      field('name', $.identifier),
-      optional(field('type', $.type_annotation_value))
+      choice(
+        // 命名字段: [access] name[?] type [description]
+        seq(
+          field('name', $.field_name),
+          field('type', $.type_annotation_value),
+          optional(field('description', $.description))
+        ),
+        // 索引签名: [access] [key_type] value_type [description]
+        seq(
+          '[',
+          field('key_type', $.type),
+          ']',
+          field('value_type', $.type),
+          optional(field('description', $.description))
+        )
+      )
     ),
+
+    // 字段名（可以带可选标记）
+    field_name: $ => token(seq(
+      /[a-zA-Z_][a-zA-Z0-9_]*/,
+      optional('?')
+    )),
 
     // @type 注解
     type_annotation: $ => seq(
@@ -77,16 +102,23 @@ module.exports = grammar({
     // @param 注解
     param_annotation: $ => seq(
       '@param',
-      field('name', $.identifier),
-      optional(field('type', $.type_annotation_value)),
-      optional(field('nullable', '?'))
+      field('name', $.param_name),
+      field('type', $.type_annotation_value),
+      optional(field('description', $.description))
     ),
+
+    // 参数名（可以带可选标记或变参标记）
+    param_name: $ => token(choice(
+      seq(/[a-zA-Z_][a-zA-Z0-9_]*/, optional('?')),
+      '...'
+    )),
 
     // @return 注解
     return_annotation: $ => seq(
       '@return',
       field('type', $.type_annotation_value),
-      optional(field('name', $.identifier))
+      optional(field('name', $.identifier)),
+      optional(field('description', $.description))
     ),
 
     // @generic 注解
@@ -109,12 +141,16 @@ module.exports = grammar({
     ),
 
     // @deprecated 注解
-    deprecated_annotation: $ => '@deprecated',
+    deprecated_annotation: $ => seq(
+      '@deprecated',
+      optional(field('description', $.description))
+    ),
 
     // @see 注解
     see_annotation: $ => seq(
       '@see',
-      field('reference', $.identifier)
+      field('reference', $.identifier),
+      optional(field('description', $.description))
     ),
 
     // @alias 注解
@@ -167,8 +203,15 @@ module.exports = grammar({
     // @version 注解
     version_annotation: $ => seq(
       '@version',
-      field('version', choice($.identifier, $.string))
+      field('version', choice($.identifier, $.string, $.version_range)),
+      optional(field('description', $.description))
     ),
+
+    // 版本范围（如 >=5.1, <5.4）
+    version_range: $ => token(seq(
+      choice('>', '<', '>=', '<='),
+      /\d+(\.\d+)*/
+    )),
 
     // @diagnostic 注解
     diagnostic_annotation: $ => seq(
@@ -180,9 +223,16 @@ module.exports = grammar({
     // @operator 注解
     operator_annotation: $ => seq(
       '@operator',
+      '(',
       field('op', $.operator),
-      optional(seq('(', field('type', $.type_annotation_value), ')')),
+      ')',
       optional(seq(':', field('return_type', $.type_annotation_value)))
+    ),
+
+    // @source 注解
+    source_annotation: $ => seq(
+      '@source',
+      field('source', $.string)
     ),
 
     // 类型注解值
@@ -308,7 +358,10 @@ module.exports = grammar({
     // 布尔值
     boolean: $ => choice('true', 'false'),
 
-    // 描述（匹配到行尾，但不贪婪吃掉所有内容）
-    description: $ => /[^\n\r]+/
+    // 描述（必须在同一行，至少包含一个非空白字符）
+    description: $ => token(seq(
+      /[ \t]+/,  // 至少一个空格或制表符
+      /[^\n\r]+/  // 然后是非换行的内容
+    ))
   }
 });

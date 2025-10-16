@@ -39,7 +39,7 @@ Field annotation
 (source
   (annotation
     (field_annotation
-      name: (identifier)
+      name: (field_name)
       type: (type_annotation_value
         (type_list
           (type
@@ -57,7 +57,7 @@ Param annotation
 (source
   (annotation
     (param_annotation
-      name: (identifier)
+      name: (param_name)
       type: (type_annotation_value
         (type_list
           (type
