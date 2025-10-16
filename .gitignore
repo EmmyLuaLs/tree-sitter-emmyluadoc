@@ -1,0 +1,56 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+
+# Build outputs
+build/
+*.node
+
+# Tree-sitter generated files
+src/parser.c
+src/tree_sitter/
+Cargo.lock
+
+# Compiled files
+*.o
+*.obj
+*.exp
+*.lib
+*.so
+*.dylib
+*.dll
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test outputs
+*.log
+
+# Python (if using Python bindings)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.egg-info/
+
+# Rust (if using Rust bindings)
+target/
+**/*.rs.bk
+
+# macOS
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini

@@ -1,0 +1,33 @@
+{
+  "name": "tree-sitter-emmyluadoc",
+  "version": "0.1.0",
+  "description": "Tree-sitter grammar for EmmyLua documentation comments",
+  "main": "bindings/node",
+  "keywords": [
+    "tree-sitter",
+    "parser",
+    "emmylua",
+    "lua",
+    "documentation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.25.10"
+  },
+  "scripts": {
+    "build": "tree-sitter generate && node-gyp build",
+    "test": "tree-sitter test"
+  },
+  "tree-sitter": [
+    {
+      "scope": "comment.block.documentation.lua",
+      "file-types": [
+        "lua"
+      ]
+    }
+  ]
+}

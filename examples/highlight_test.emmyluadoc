@@ -1,0 +1,30 @@
+@class Person
+@field name string
+@field age number
+
+@class Student : Person
+@field grade number
+@field school string
+
+@param name string
+@param age number
+@return Person
+
+@generic T
+@param list T[]
+@return T
+
+@type string | number
+@type fun(name: string, age: number): Person
+@type table<string, number>
+@type List<string>
+
+@alias ID string | number
+
+@enum Color
+
+@deprecated
+@private
+@async
+@cast myVar string
+@nodiscard

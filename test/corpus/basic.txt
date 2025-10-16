@@ -1,0 +1,252 @@
+==================
+Class annotation
+==================
+
+@class Person
+
+---
+
+(source
+  (annotation
+    (class_annotation
+      name: (identifier))))
+
+==================
+Class with parent
+==================
+
+@class Student : Person
+
+---
+
+(source
+  (annotation
+    (class_annotation
+      name: (identifier)
+      parent: (type_list
+        (type
+          (primary_type
+            (basic_type (identifier))))))))
+
+==================
+Field annotation
+==================
+
+@field name string
+
+---
+
+(source
+  (annotation
+    (field_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier)))))))))
+
+==================
+Param annotation
+==================
+
+@param name string
+
+---
+
+(source
+  (annotation
+    (param_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier)))))))))
+
+==================
+Return annotation
+==================
+
+@return string
+
+---
+
+(source
+  (annotation
+    (return_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier)))))))))
+
+==================
+Generic annotation
+==================
+
+@generic T
+
+---
+
+(source
+  (annotation
+    (generic_annotation
+      name: (identifier))))
+
+==================
+Function type
+==================
+
+@type fun(name: string, age: number): Person
+
+---
+
+(source
+  (annotation
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (function_type
+                params: (param_list
+                  (param_def
+                    name: (identifier)
+                    type: (type
+                      (primary_type
+                        (basic_type (identifier)))))
+                  (param_def
+                    name: (identifier)
+                    type: (type
+                      (primary_type
+                        (basic_type (identifier))))))
+                return: (type_list
+                  (type
+                    (primary_type
+                      (basic_type (identifier)))))))))))))
+
+==================
+Array type
+==================
+
+@type string[]
+
+---
+
+(source
+  (annotation
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (array_type
+              element: (primary_type
+                (basic_type (identifier))))))))))
+
+==================
+Union type
+==================
+
+@type string | number
+
+---
+
+(source
+  (annotation
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier))))
+          (type
+            (primary_type
+              (basic_type (identifier)))))))))
+
+==================
+Table type
+==================
+
+@type table<string, number>
+
+---
+
+(source
+  (annotation
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (table_type
+                key: (type
+                  (primary_type
+                    (basic_type (identifier))))
+                value: (type
+                  (primary_type
+                    (basic_type (identifier))))))))))))
+
+==================
+Generic type
+==================
+
+@type List<string>
+
+---
+
+(source
+  (annotation
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (generic_type
+                base: (identifier)
+                params: (type_list
+                  (type
+                    (primary_type
+                      (basic_type (identifier)))))))))))))
+
+==================
+Deprecated annotation
+==================
+
+@deprecated
+
+---
+
+(source
+  (annotation
+    (deprecated_annotation)))
+
+==================
+Private annotation
+==================
+
+@private
+
+---
+
+(source
+  (annotation
+    (private_annotation)))
+
+==================
+Alias annotation
+==================
+
+@alias MyType string
+
+---
+
+(source
+  (annotation
+    (alias_annotation
+      name: (identifier)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type (identifier)))))))))
