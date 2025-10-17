@@ -1,0 +1,13 @@
+==================
+Triple dash immediately followed by @ (annotation)
+==================
+
+---@class Immediate
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier))))

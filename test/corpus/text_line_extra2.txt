@@ -1,0 +1,12 @@
+==================
+Line starts with at-sign (annotation)
+==================
+
+@class ShouldBeAnnotation
+
+---
+
+(source
+  (annotation
+    (class_annotation
+      name: (identifier))))

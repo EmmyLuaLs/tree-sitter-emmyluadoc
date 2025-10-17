@@ -1,0 +1,10 @@
+==================
+Text line with leading spaces
+==================
+
+  This line starts with spaces and should be text_line
+
+---
+
+(source
+  (text_line))

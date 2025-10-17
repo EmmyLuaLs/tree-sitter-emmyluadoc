@@ -1,0 +1,10 @@
+==================
+Text with @ in the middle
+==================
+
+Some text with @middle should be text_line
+
+---
+
+(source
+  (text_line))
