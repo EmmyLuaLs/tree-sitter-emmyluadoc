@@ -1,6 +1,10 @@
 module.exports = grammar({
   name: 'emmyluadoc',
 
+  externals: $ => [
+    $.text_line
+  ],
+
   extras: $ => [
     /\s/
   ],
@@ -10,16 +14,13 @@ module.exports = grammar({
   rules: {
     // Root rule of the document
     source: $ => repeat(choice(
+      $.text_line,
       $.annotation,
-      $.type_continuation,
-      $.text_line
+      $.type_continuation
     )),
 
-    // Plain text line (fallback - matches lines that don't start with comment/annotation markers)
-    text_line: $ => token(prec(-100, seq(
-      /[^-@\s\n\r]/,  // Must NOT start with -, @ or whitespace
-      /[^\n\r]*/      // Rest of the line
-    ))),
+    // Plain text line (handled by external scanner)
+    // Matches lines that don't start with valid annotation patterns
 
     // Lua comment prefix
     comment_prefix: $ => token(prec(-1, /-{1,3}[ \t]*/)),

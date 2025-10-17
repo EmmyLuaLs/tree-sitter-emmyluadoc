@@ -3,16 +3,12 @@ Text line not starting with comment or @
 ==================
 
 jfoiawoifjoiw @class MyClass
----@class Person
+
 
 ---
 
 (source
-  (text_line)
-  (annotation
-    (comment_prefix)
-    (class_annotation
-      name: (identifier))))
+  (text_line))
 
 ==================
 Multiple text lines and annotations

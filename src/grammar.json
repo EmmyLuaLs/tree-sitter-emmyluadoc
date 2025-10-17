@@ -10,37 +10,17 @@
         "members": [
           {
             "type": "SYMBOL",
+            "name": "text_line"
+          },
+          {
+            "type": "SYMBOL",
             "name": "annotation"
           },
           {
             "type": "SYMBOL",
             "name": "type_continuation"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "text_line"
           }
         ]
-      }
-    },
-    "text_line": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": -100,
-        "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "[^-@\\s\\n\\r]"
-            },
-            {
-              "type": "PATTERN",
-              "value": "[^\\n\\r]*"
-            }
-          ]
-        }
       }
     },
     "comment_prefix": {
@@ -1988,7 +1968,12 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "text_line"
+    }
+  ],
   "inline": [],
   "supertypes": [],
   "reserved": {}
