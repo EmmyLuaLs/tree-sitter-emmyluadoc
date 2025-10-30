@@ -691,22 +691,6 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "name",
-              "content": {
-                "type": "SYMBOL",
-                "name": "identifier"
-              }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
               "name": "description",
               "content": {
                 "type": "SYMBOL",

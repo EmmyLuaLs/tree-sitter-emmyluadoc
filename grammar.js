@@ -160,7 +160,6 @@ module.exports = grammar({
     // Return value definition
     return_value: $ => seq(
       field('type', $.return_type_annotation),
-      optional(field('name', $.identifier)),
       optional(field('description', $.description))
     ),
 

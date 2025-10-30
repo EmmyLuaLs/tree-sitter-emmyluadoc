@@ -97,9 +97,6 @@
 (param_annotation
   name: (param_name) @variable.parameter)
 
-(return_value
-  name: (identifier) @variable.parameter)
-
 (param_def
   name: (identifier) @variable.parameter)
 

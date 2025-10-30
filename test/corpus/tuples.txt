@@ -120,7 +120,7 @@ Tuple in return
                         (primary_type
                           (basic_type
                             (identifier)))))))))))
-        name: (identifier)))))
+        description: (description)))))
 
 ==================
 Nested tuple

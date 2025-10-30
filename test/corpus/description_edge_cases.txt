@@ -64,7 +64,7 @@ Return with name and description
               (primary_type
                 (basic_type
                   (identifier))))))
-        name: (identifier))))
+        description: (description))))
   (annotation
     (comment_prefix)
     (return_annotation
@@ -78,7 +78,7 @@ Return with name and description
             (type
               (primary_type
                 (literal_type)))))
-        name: (identifier)))))
+        description: (description)))))
 
 ================================================================================
 Param with description containing special chars

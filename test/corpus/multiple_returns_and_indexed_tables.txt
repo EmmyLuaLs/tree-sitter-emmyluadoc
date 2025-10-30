@@ -17,7 +17,7 @@ Multiple return values
               (primary_type
                 (basic_type
                   (identifier))))))
-        name: (identifier))
+        description: (description))
       (return_value
         type: (return_type_annotation
           (type_list
@@ -25,7 +25,7 @@ Multiple return values
               (primary_type
                 (basic_type
                   (identifier))))))
-        name: (identifier)))))
+        description: (description)))))
 
 ==================
 Multiple returns without names
@@ -80,7 +80,7 @@ Multiple returns with description
               (primary_type
                 (basic_type
                   (identifier))))))
-        name: (identifier))
+        description: (description))
       (return_value
         type: (return_type_annotation
           (type_list
@@ -88,7 +88,7 @@ Multiple returns with description
               (primary_type
                 (basic_type
                   (identifier))))))
-        name: (identifier)))))
+        description: (description)))))
 
 ==================
 Table with numeric index
