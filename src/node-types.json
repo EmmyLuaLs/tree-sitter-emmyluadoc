@@ -796,7 +796,7 @@
     "named": true,
     "fields": {
       "constraint": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -806,7 +806,7 @@
         ]
       },
       "name": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
@@ -1247,7 +1247,7 @@
       },
       "reference": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",

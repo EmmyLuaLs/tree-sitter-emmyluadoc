@@ -168,7 +168,12 @@ module.exports = grammar({
     generic_annotation: $ => seq(
       '@generic',
       field('name', $.identifier),
-      optional(seq(':', field('constraint', $.type_annotation_value)))
+      optional(seq(':', field('constraint', $.type_annotation_value))),
+      repeat(seq(
+        ',',
+        field('name', $.identifier),
+        optional(seq(':', field('constraint', $.type_annotation_value)))
+      ))
     ),
 
     // @overload annotation
@@ -186,8 +191,13 @@ module.exports = grammar({
     // @see annotation
     see_annotation: $ => seq(
       '@see',
-      field('reference', $.identifier),
-      optional(field('description', $.description))
+      choice(
+        seq(
+          field('reference', $.identifier),
+          optional(field('description', $.description))
+        ),
+        field('description', $.description)
+      )
     ),
 
     // @alias annotation

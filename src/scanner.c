@@ -94,10 +94,8 @@ static bool scan_description(TSLexer *lexer) {
     return false;
   }
   
-  // Count leading spaces
-  int space_count = 0;
+  // Skip leading whitespace
   while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-    space_count++;
     lexer->advance(lexer, false);
   }
   
@@ -111,38 +109,67 @@ static bool scan_description(TSLexer *lexer) {
     return false;
   }
   
-  // Check if this looks like it contains a comma (part of a list, not a description)
+  // Strategy: Description is multi-word text OR starts with uppercase letter OR starts with # or @
+  // This allows single-word lowercase names to be matched by identifier first
+  
+  // Check first character
+  bool starts_with_uppercase = (lexer->lookahead >= 'A' && lexer->lookahead <= 'Z');
+  bool starts_with_special = (lexer->lookahead == '#' || lexer->lookahead == '@');
+  
+  // Scan the line to check if it contains multiple words
+  bool found_space_in_content = false;
   bool has_comma = false;
+  
   while (lexer->lookahead != '\n' && lexer->lookahead != '\r' && lexer->lookahead != 0) {
     if (lexer->lookahead == ',') {
       has_comma = true;
       break;
     }
-    lexer->advance(lexer, false);
+    
+    // Check for space within content
+    if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+      // Skip spaces
+      while ((lexer->lookahead == ' ' || lexer->lookahead == '\t') && 
+             lexer->lookahead != '\n' && lexer->lookahead != '\r' && 
+             lexer->lookahead != 0) {
+        lexer->advance(lexer, false);
+      }
+      
+      // If there's content after the space(s), we have multiple words
+      if (lexer->lookahead != '\n' && lexer->lookahead != '\r' && 
+          lexer->lookahead != 0 && lexer->lookahead != ',') {
+        found_space_in_content = true;
+        // Continue consuming to end of line
+        while (lexer->lookahead != '\n' && lexer->lookahead != '\r' && 
+               lexer->lookahead != 0) {
+          lexer->advance(lexer, false);
+        }
+        break;
+      } else {
+        // Space at end of line, just whitespace
+        break;
+      }
+    } else {
+      lexer->advance(lexer, false);
+    }
   }
   
-  // If we found a comma, this is not a description
+  // Don't match if there's a comma (part of a list)
   if (has_comma) {
     return false;
   }
   
-  // If there's only one leading space, check if this is a single-word name or multi-word description
-  // For the pattern "type name description", we want to let parser match "name" first
-  // So we only match description if there are 2+ words OR 2+ spaces before content
-  // This allows: "@return type name" to parse name correctly
-  // And allows: "@return type  description text" or "@return type This is description" to parse description
-  
-  // If we have 2+ spaces, it's definitely a description
-  if (space_count >= 2) {
+  // Match description if:
+  // 1. It has multiple words, OR
+  // 2. It's a single word starting with uppercase (likely a sentence), OR
+  // 3. It starts with # or @ (special markers)
+  if (found_space_in_content || starts_with_uppercase || starts_with_special) {
     lexer->mark_end(lexer);
     lexer->result_symbol = DESCRIPTION;
     return true;
   }
   
-  // With single space, only match if it's clearly multi-word content
-  // We already consumed to end of line above, so we can't easily count words
-  // Simple heuristic: don't match description with single space
-  // This allows the grammar's optional identifier to be tried first
+  // Single lowercase word - let identifier match it as name
   return false;
 }
 
