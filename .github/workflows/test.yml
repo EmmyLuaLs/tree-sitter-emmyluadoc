@@ -1,0 +1,101 @@
+name: Test
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Parser Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [18, 20, 22]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate parser
+        run: npx tree-sitter generate
+
+      - name: Run tests
+        run: npx tree-sitter test
+
+      - name: Parse test (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          echo "---@class Person" | npx tree-sitter parse
+          echo "---@param name string The name" | npx tree-sitter parse
+          echo "---@return boolean success" | npx tree-sitter parse
+
+      - name: Parse test (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          echo "---@class Person" | npx tree-sitter parse
+          echo "---@param name string The name" | npx tree-sitter parse
+          echo "---@return boolean success" | npx tree-sitter parse
+
+  build:
+    name: Build Parser
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build parser
+        run: npx tree-sitter build
+
+      - name: Check for parsing errors
+        run: |
+          npx tree-sitter parse test/corpus/*.txt --quiet --stat
+
+  lint:
+    name: Lint Grammar
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate parser
+        run: npx tree-sitter generate
+
+      - name: Check for conflicts
+        run: |
+          if grep -q "conflict" <(npx tree-sitter generate 2>&1); then
+            echo "Grammar has conflicts!"
+            exit 1
+          else
+            echo "No conflicts found."
+          fi

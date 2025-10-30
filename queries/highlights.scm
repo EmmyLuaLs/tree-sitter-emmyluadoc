@@ -151,6 +151,10 @@
 ; Description
 (description) @comment
 
+; Other annotation description (highlight differently for visibility)
+(other_annotation
+  description: (description) @string.documentation)
+
 ; Continuation description
 (continuation_description) @comment
 

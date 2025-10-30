@@ -1,0 +1,66 @@
+==================
+Unknown annotation with description
+==================
+
+---@unknown this is a custom annotation
+---@custom-tag with hyphen in tag name
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (other_annotation
+      tag: (tag_name)
+      description: (description)))
+  (annotation
+    (comment_prefix)
+    (other_annotation
+      tag: (tag_name)
+      description: (description))))
+
+==================
+Unknown annotation without description
+==================
+
+---@mytag
+---@_private
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (other_annotation
+      tag: (tag_name)))
+  (annotation
+    (comment_prefix)
+    (other_annotation
+      tag: (tag_name))))
+
+==================
+Multiple custom annotations
+==================
+
+---@experimental this feature is experimental
+---@since v1.0.0
+---@author John Doe
+
+---
+
+(source
+  (annotation
+    (comment_prefix)
+    (other_annotation
+      tag: (tag_name)
+      description: (description)))
+  (annotation
+    (comment_prefix)
+    (other_annotation
+      tag: (tag_name)
+      description: (description)))
+  (annotation
+    (comment_prefix)
+    (other_annotation
+      tag: (tag_name)
+      description: (description))))
