@@ -67,10 +67,10 @@ jobs:
 
       - name: Build parser
         run: npx tree-sitter build
-
-      - name: Check for parsing errors
+        
+      - name: Parse test samples
         run: |
-          npx tree-sitter parse test/corpus/*.txt --quiet --stat
+          npx tree-sitter test
 
   lint:
     name: Lint Grammar
