@@ -198,6 +198,16 @@
     "type": "as_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "type": {
         "multiple": false,
         "required": true,
@@ -214,6 +224,16 @@
     "type": "attribute_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -567,7 +587,18 @@
   {
     "type": "deprecated_annotation",
     "named": true,
-    "fields": {}
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "diagnostic_annotation",
@@ -660,6 +691,16 @@
     "type": "field_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "key_type": {
         "multiple": false,
         "required": false,
@@ -841,6 +882,16 @@
     "type": "language_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "language": {
         "multiple": false,
         "required": true,
@@ -896,6 +947,16 @@
     "type": "namespace_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -969,6 +1030,16 @@
     "type": "param_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1128,6 +1199,16 @@
     "type": "return_value",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": false,
@@ -1154,6 +1235,16 @@
     "type": "see_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "reference": {
         "multiple": false,
         "required": true,
@@ -1501,6 +1592,16 @@
     "type": "using_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "path": {
         "multiple": false,
         "required": true,
@@ -1521,6 +1622,16 @@
     "type": "version_annotation",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
       "version": {
         "multiple": false,
         "required": true,
@@ -1743,6 +1854,10 @@
   },
   {
     "type": "continuation_description",
+    "named": true
+  },
+  {
+    "type": "description",
     "named": true
   },
   {

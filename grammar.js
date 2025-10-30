@@ -2,7 +2,8 @@ module.exports = grammar({
   name: 'emmyluadoc',
 
   externals: $ => [
-    $.text_line
+    $.text_line,
+    $.description
   ],
 
   extras: $ => [
@@ -110,7 +111,7 @@ module.exports = grammar({
         seq(
           field('name', $.field_name),
           field('type', $.type_annotation_value),
-    
+          optional(field('description', $.description))
         ),
         // Index signature: [access] [key_type] value_type [description]
         seq(
@@ -118,7 +119,7 @@ module.exports = grammar({
           field('key_type', $.type),
           ']',
           field('value_type', $.type),
-    
+          optional(field('description', $.description))
         )
       )
     ),
@@ -140,7 +141,7 @@ module.exports = grammar({
       '@param',
       field('name', $.param_name),
       field('type', $.type_annotation_value),
-
+      optional(field('description', $.description))
     ),
 
     // Parameter name (can have optional marker or vararg marker, supports hyphens and dots)
@@ -160,7 +161,7 @@ module.exports = grammar({
     return_value: $ => seq(
       field('type', $.return_type_annotation),
       optional(field('name', $.identifier)),
-
+      optional(field('description', $.description))
     ),
 
     // @generic annotation
@@ -179,14 +180,14 @@ module.exports = grammar({
     // @deprecated annotation
     deprecated_annotation: $ => seq(
       '@deprecated',
-
+      optional(field('description', $.description))
     ),
 
     // @see annotation
     see_annotation: $ => seq(
       '@see',
       field('reference', $.identifier),
-
+      optional(field('description', $.description))
     ),
 
     // @alias annotation
@@ -242,7 +243,7 @@ module.exports = grammar({
     version_annotation: $ => seq(
       '@version',
       field('version', choice($.identifier, $.string, $.version_range)),
-
+      optional(field('description', $.description))
     ),
 
     // Version range (e.g. >=5.1, <5.4)
@@ -282,14 +283,14 @@ module.exports = grammar({
     namespace_annotation: $ => seq(
       '@namespace',
       field('name', $.identifier),
-
+      optional(field('description', $.description))
     ),
 
     // @using annotation
     using_annotation: $ => seq(
       '@using',
       field('path', choice($.identifier, $.string)),
-
+      optional(field('description', $.description))
     ),
 
     // @export annotation
@@ -299,7 +300,7 @@ module.exports = grammar({
     language_annotation: $ => seq(
       '@language',
       field('language', $.identifier),
-
+      optional(field('description', $.description))
     ),
 
     // @attribute annotation (for defining custom attributes)
@@ -311,7 +312,7 @@ module.exports = grammar({
         optional(field('params', $.attribute_params)),
         ')'
       )),
-
+      optional(field('description', $.description))
     ),
 
     // Attribute parameters
@@ -370,7 +371,7 @@ module.exports = grammar({
     as_annotation: $ => seq(
       '@as',
       field('type', $.type_annotation_value),
-
+      optional(field('description', $.description))
     ),
 
     // Type annotation value
@@ -602,9 +603,8 @@ module.exports = grammar({
     number: $ => /\d+(\.\d+)?/,
 
     // Boolean
-    boolean: $ => choice('true', 'false'),
+    boolean: $ => choice('true', 'false')
 
-    // Description (must be on the same line, preceded by space, cannot start with | or ,)
-    description: $ => token(prec(-1, /[^|\n\r,][^\n\r]*/))
+    // Description is handled by external scanner
   }
 });
