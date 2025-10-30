@@ -56,7 +56,7 @@ local Color = {
 -- 测试不同的注释前缀
 ---@class Teacher (triple dash)
 --@class Manager (double dash)
--@class Director (single dash)
+
 
 ---@type table<string, Person>
 local people = {}

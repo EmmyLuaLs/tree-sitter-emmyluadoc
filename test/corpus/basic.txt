@@ -2,12 +2,13 @@
 Class annotation
 ==================
 
-@class Person
+---@class Person
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (class_annotation
       name: (identifier))))
 
@@ -15,12 +16,13 @@ Class annotation
 Class with parent
 ==================
 
-@class Student : Person
+---@class Student : Person
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (class_annotation
       name: (identifier)
       parent: (type_list
@@ -33,12 +35,13 @@ Class with parent
 Field annotation
 ==================
 
-@field name string
+---@field name string
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (field_annotation
       name: (field_name)
       type: (type_annotation_value
@@ -52,12 +55,13 @@ Field annotation
 Param annotation
 ==================
 
-@param name string
+---@param name string
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (param_annotation
       name: (param_name)
       type: (type_annotation_value
@@ -71,12 +75,13 @@ Param annotation
 Return annotation
 ==================
 
-@return string
+---@return string
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (return_annotation
       (return_value
         type: (return_type_annotation
@@ -90,12 +95,13 @@ Return annotation
 Generic annotation
 ==================
 
-@generic T
+---@generic T
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (generic_annotation
       name: (identifier))))
 
@@ -103,12 +109,13 @@ Generic annotation
 Function type
 ==================
 
-@type fun(name: string, age: number): Person
+---@type fun(name: string, age: number): Person
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (type_annotation
       type: (type_annotation_value
         (type_list
@@ -138,12 +145,13 @@ Function type
 Array type
 ==================
 
-@type string[]
+---@type string[]
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (type_annotation
       type: (type_annotation_value
         (type_list
@@ -157,12 +165,13 @@ Array type
 Union type
 ==================
 
-@type string | number
+---@type string | number
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (type_annotation
       type: (type_annotation_value
         (type_list
@@ -179,12 +188,13 @@ Union type
 Table type
 ==================
 
-@type table<string, number>
+---@type table<string, number>
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (type_annotation
       type: (type_annotation_value
         (type_list
@@ -204,12 +214,13 @@ Table type
 Generic type
 ==================
 
-@type List<string>
+---@type List<string>
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (type_annotation
       type: (type_annotation_value
         (type_list
@@ -227,36 +238,39 @@ Generic type
 Deprecated annotation
 ==================
 
-@deprecated
+---@deprecated
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (deprecated_annotation)))
 
 ==================
 Private annotation
 ==================
 
-@private
+---@private
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (private_annotation)))
 
 ==================
 Alias annotation
 ==================
 
-@alias MyType string
+---@alias MyType string
 
 ---
 
 (source
   (annotation
+    (comment_prefix)
     (alias_annotation
       name: (identifier)
       type: (type_annotation_value

@@ -1,8 +1,122 @@
 ================================================================================
-Class with exact modifier
+Interface annotation
 ================================================================================
 
----@class (exact) Point
+---@interface IShape
+---@field width number
+---@field height number
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (class_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Enum with fields
+================================================================================
+
+---@enum Color
+---@field RED number
+---@field GREEN number
+---@field BLUE number
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (enum_annotation
+      name: (identifier)))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Async function type
+================================================================================
+
+---@type async fun(url: string): Promise
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (function_type
+                params: (param_list
+                  (param_def
+                    name: (identifier)
+                    type: (type
+                      (primary_type
+                        (basic_type
+                          (identifier))))))
+                return: (type_list
+                  (type
+                    (primary_type
+                      (basic_type
+                        (identifier)))))))))))))
+
+================================================================================
+Namespace annotation
+================================================================================
+
+---@namespace math.vector
+---@class Vector2
 ---@field x number
 ---@field y number
 
@@ -11,102 +125,8 @@ Class with exact modifier
 (source
   (annotation
     (comment_prefix)
-    (class_annotation
+    (namespace_annotation
       name: (identifier)))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      name: (field_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier))))))))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      name: (field_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier)))))))))
-
-================================================================================
-Class with partial modifier
-================================================================================
-
----@class (partial) Animal
----@field weight number
-
---------------------------------------------------------------------------------
-
-(source
-  (annotation
-    (comment_prefix)
-    (class_annotation
-      name: (identifier)))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      name: (field_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier)))))))))
-
-================================================================================
-Field with index signature
-================================================================================
-
----@class Configuration
----@field host string
----@field [string] any
-
---------------------------------------------------------------------------------
-
-(source
-  (annotation
-    (comment_prefix)
-    (class_annotation
-      name: (identifier)))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      name: (field_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier))))))))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      key_type: (type
-        (primary_type
-          (basic_type
-            (identifier))))
-      value_type: (type
-        (primary_type
-          (basic_type
-            (identifier)))))))
-
-================================================================================
-Field with optional marker
-================================================================================
-
----@class User
----@field name string
----@field email? string
-
---------------------------------------------------------------------------------
-
-(source
   (annotation
     (comment_prefix)
     (class_annotation
@@ -133,40 +153,36 @@ Field with optional marker
                 (identifier)))))))))
 
 ================================================================================
-Param with optional marker
+Using annotation
 ================================================================================
 
----@param name string
----@param age? number
----@param ... any
+---@using "external.module"
 
 --------------------------------------------------------------------------------
 
 (source
   (annotation
     (comment_prefix)
-    (param_annotation
-      name: (param_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier))))))))
+    (using_annotation
+      path: (string))))
+
+================================================================================
+Readonly annotation
+================================================================================
+
+---@readonly
+---@field const number
+
+--------------------------------------------------------------------------------
+
+(source
   (annotation
     (comment_prefix)
-    (param_annotation
-      name: (param_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier))))))))
+    (readonly_annotation))
   (annotation
     (comment_prefix)
-    (param_annotation
-      name: (param_name)
+    (field_annotation
+      name: (field_name)
       type: (type_annotation_value
         (type_list
           (type
@@ -175,79 +191,97 @@ Param with optional marker
                 (identifier)))))))))
 
 ================================================================================
-Return with name and description
+As annotation
 ================================================================================
 
----@return boolean success
----@return string | nil error
+---@as Vector2
 
 --------------------------------------------------------------------------------
 
 (source
   (annotation
     (comment_prefix)
-    (return_annotation
-      (return_value
-        type: (return_type_annotation
-          (type_list
-            (type
-              (primary_type
+    (as_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Attribute definition
+================================================================================
+
+---@attribute deprecated(message: string)
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (attribute_annotation
+      name: (identifier)
+      params: (attribute_params
+        (attribute_param
+          name: (identifier)
+          type: (type
+            (primary_type
+              (basic_type
+                (identifier)))))))))
+
+================================================================================
+Attribute use on field
+================================================================================
+
+---@field oldField string
+---@[deprecated]
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (field_annotation
+      name: (field_name)
+      type: (type_annotation_value
+        (type_list
+          (type
+            (primary_type
+              (basic_type
+                (identifier))))))))
+  (annotation
+    (comment_prefix)
+    (attribute_use
+      attributes: (attribute_use_list
+        (attribute_use_item
+          name: (identifier))))))
+
+================================================================================
+Keyof type operator
+================================================================================
+
+---@type keyof MyClass
+
+--------------------------------------------------------------------------------
+
+(source
+  (annotation
+    (comment_prefix)
+    (type_annotation
+      type: (type_annotation_value
+        (type_list
+          (type
+            (unary_type
+              argument: (primary_type
                 (basic_type
-                  (identifier))))))
-        name: (identifier))))
-  (annotation
-    (comment_prefix)
-    (return_annotation
-      (return_value
-        type: (return_type_annotation
-          (type_list
-            (type
-              (primary_type
-                (basic_type
-                  (identifier))))
-            (type
-              (primary_type
-                (literal_type)))))
-        name: (identifier)))))
+                  (identifier))))))))))
 
 ================================================================================
-Deprecated with description
+Operator with parameters
 ================================================================================
 
----@deprecated
-
---------------------------------------------------------------------------------
-
-(source
-  (annotation
-    (comment_prefix)
-    (deprecated_annotation)))
-
-================================================================================
-Version with range
-================================================================================
-
----@version >=5.1
----@version <5.4
-
---------------------------------------------------------------------------------
-
-(source
-  (annotation
-    (comment_prefix)
-    (version_annotation
-      version: (version_range)))
-  (annotation
-    (comment_prefix)
-    (version_annotation
-      version: (version_range))))
-
-================================================================================
-Operator with new syntax
-================================================================================
-
----@operator(add): Vector
----@operator(call): function
+---@operator(add)(other: Vector): Vector
 
 --------------------------------------------------------------------------------
 
@@ -256,16 +290,13 @@ Operator with new syntax
     (comment_prefix)
     (operator_annotation
       op: (operator)
-      return_type: (type_annotation_value
-        (type_list
-          (type
+      params: (param_list
+        (param_def
+          name: (identifier)
+          type: (type
             (primary_type
               (basic_type
-                (identifier))))))))
-  (annotation
-    (comment_prefix)
-    (operator_annotation
-      op: (operator)
+                (identifier))))))
       return_type: (type_annotation_value
         (type_list
           (type
@@ -274,106 +305,33 @@ Operator with new syntax
                 (identifier)))))))))
 
 ================================================================================
-Source annotation
+Language annotation
 ================================================================================
 
----@source "path/to/source.lua"
+---@language lua
 
 --------------------------------------------------------------------------------
 
 (source
   (annotation
     (comment_prefix)
-    (source_annotation
-      source: (string))))
+    (language_annotation
+      language: (identifier))))
 
 ================================================================================
-Complex combination
+Export annotation
 ================================================================================
 
----@class (exact) BankAccount
----@field public balance number
----@field private pin string
----@field [string] any
-
----@param amount? number
----@return boolean success
----@return string | nil error
----@deprecated
+---@export
+---@class MyClass
 
 --------------------------------------------------------------------------------
 
 (source
+  (annotation
+    (comment_prefix)
+    (export_annotation))
   (annotation
     (comment_prefix)
     (class_annotation
-      name: (identifier)))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      name: (field_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier))))))))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      name: (field_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier))))))))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      key_type: (type
-        (primary_type
-          (basic_type
-            (identifier))))
-      value_type: (type
-        (primary_type
-          (basic_type
-            (identifier))))))
-  (annotation
-    (comment_prefix)
-    (param_annotation
-      name: (param_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier))))))))
-  (annotation
-    (comment_prefix)
-    (return_annotation
-      (return_value
-        type: (return_type_annotation
-          (type_list
-            (type
-              (primary_type
-                (basic_type
-                  (identifier))))))
-        name: (identifier))))
-  (annotation
-    (comment_prefix)
-    (return_annotation
-      (return_value
-        type: (return_type_annotation
-          (type_list
-            (type
-              (primary_type
-                (basic_type
-                  (identifier))))
-            (type
-              (primary_type
-                (literal_type)))))
-        name: (identifier))))
-  (annotation
-    (comment_prefix)
-    (deprecated_annotation)))
+      name: (identifier))))

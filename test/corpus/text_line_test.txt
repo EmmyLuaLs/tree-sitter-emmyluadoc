@@ -42,15 +42,7 @@ Some more text
               (basic_type
                 (identifier))))))))
   (text_line)
-  (annotation
-    (param_annotation
-      name: (param_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier))))))))
+  (text_line)
   (text_line))
 
 ==================

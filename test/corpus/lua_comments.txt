@@ -27,51 +27,27 @@ Lua comment prefix with triple dash
 Lua comment prefix with single dash
 ==================
 
+- This is a regular comment
 -@class Student
--@field grade number
 
 ---
 
 (source
-  (annotation
-    (comment_prefix)
-    (class_annotation
-      name: (identifier)))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      name: (field_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier)))))))))
+  (text_line)
+  (text_line))
 
 ==================
 Lua comment prefix with double dash
 ==================
 
+-- This is a regular comment
 --@class Teacher
---@field subject string
 
 ---
 
 (source
-  (annotation
-    (comment_prefix)
-    (class_annotation
-      name: (identifier)))
-  (annotation
-    (comment_prefix)
-    (field_annotation
-      name: (field_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier)))))))))
+  (text_line)
+  (text_line))
 
 ==================
 Type continuation basic
@@ -146,15 +122,5 @@ Without comment prefix
 ---
 
 (source
-  (annotation
-    (class_annotation
-      name: (identifier)))
-  (annotation
-    (field_annotation
-      name: (field_name)
-      type: (type_annotation_value
-        (type_list
-          (type
-            (primary_type
-              (basic_type
-                (identifier)))))))))
+  (text_line)
+  (text_line))

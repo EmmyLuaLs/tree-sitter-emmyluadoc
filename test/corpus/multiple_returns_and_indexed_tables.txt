@@ -65,7 +65,7 @@ Multiple returns without names
 Multiple returns with description
 ==================
 
----@return string name, number age User info
+---@return string name, number age
 
 ---
 
@@ -88,8 +88,7 @@ Multiple returns with description
               (primary_type
                 (basic_type
                   (identifier))))))
-        name: (identifier)
-        description: (description)))))
+        name: (identifier)))))
 
 ==================
 Table with numeric index

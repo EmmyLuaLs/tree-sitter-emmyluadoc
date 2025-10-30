@@ -38,18 +38,34 @@ static bool scan_text_line(TSLexer *lexer) {
   if (lexer->lookahead == '\n' || lexer->lookahead == '\r') return false;
 
   // Case 1: Starts with @ directly (e.g., "@class MyClass")
-  if (lexer->lookahead == '@') return false;
+  // According to new rules, @ without --- prefix should be treated as text_line
+  if (lexer->lookahead == '@') {
+    // Consume the entire line as text_line
+    while (lexer->lookahead != '\n' && lexer->lookahead != '\r' && lexer->lookahead != 0) {
+      lexer->advance(lexer, false);
+    }
+    lexer->result_symbol = TEXT_LINE;
+    lexer->mark_end(lexer);
+    return true;
+  }
   
   // Case 2: Starts with dash sequence (comment-like) e.g. ---something
   if (lexer->lookahead == '-') {
-    // Consume up to the sequence of dashes (we don't limit count strictly here)
-    while (lexer->lookahead == '-') lexer->advance(lexer, true);
+    int dash_count = 0;
+    // Count the dashes
+    while (lexer->lookahead == '-') {
+      dash_count++;
+      lexer->advance(lexer, true);
+    }
 
     // Skip horizontal whitespace after dashes
     while (lexer->lookahead == ' ' || lexer->lookahead == '\t') lexer->advance(lexer, true);
 
-    // If next char is @ or | treat it as not a plain text_line
-    if (lexer->lookahead == '@' || lexer->lookahead == '|') return false;
+    // If exactly 3 dashes followed by @ or @[ -> this is an annotation, not text_line
+    if (dash_count == 3 && lexer->lookahead == '@') return false;
+    
+    // If exactly 3 dashes followed by | -> this is a type continuation, not text_line
+    if (dash_count == 3 && lexer->lookahead == '|') return false;
 
     // Otherwise consume to end of line and return TEXT_LINE
     while (lexer->lookahead != '\n' && lexer->lookahead != '\r' && lexer->lookahead != 0) {

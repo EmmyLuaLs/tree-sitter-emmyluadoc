@@ -1,0 +1,242 @@
+  advanced_features:
+      1. 鉁?[32mClass with exact modifier[0m
+      2. 鉁?[32mClass with partial modifier[0m
+      3. 鉁?[32mField with index signature[0m
+      4. 鉁?[32mField with optional marker[0m
+      5. 鉁?[32mParam with optional marker[0m
+      6. 鉁?[31mReturn with name and description[0m
+      7. 鉁?[31mDeprecated with description[0m
+      8. 鉁?[32mVersion with range[0m
+      9. 鉁?[32mOperator with new syntax[0m
+     10. 鉁?[32mSource annotation[0m
+     11. 鉁?[32mComplex combination[0m
+  basic:
+     12. 鉁?[32mClass annotation[0m
+     13. 鉁?[32mClass with parent[0m
+     14. 鉁?[32mField annotation[0m
+     15. 鉁?[32mParam annotation[0m
+     16. 鉁?[32mReturn annotation[0m
+     17. 鉁?[32mGeneric annotation[0m
+     18. 鉁?[32mFunction type[0m
+     19. 鉁?[32mArray type[0m
+     20. 鉁?[32mUnion type[0m
+     21. 鉁?[32mTable type[0m
+     22. 鉁?[32mGeneric type[0m
+     23. 鉁?[32mDeprecated annotation[0m
+     24. 鉁?[32mPrivate annotation[0m
+     25. 鉁?[32mAlias annotation[0m
+  description_edge_cases:
+     26. 鉁?[32mParam with union type and literals[0m
+     27. 鉁?[32mReturn with name and description[0m
+     28. 鉁?[32mParam with description containing special chars[0m
+  generics:
+     29. 鉁?[32mClass with generics[0m
+     30. 鉁?[32mClass with multiple generics[0m
+     31. 鉁?[32mAlias with generics[0m
+     32. 鉁?[32mParam with optional marker - correct syntax[0m
+     33. 鉁?[32mComplex generic class example[0m
+  highlighting:
+     34. 鉁?[32mHighlighting: Built-in types[0m
+     35. 鉁?[32mHighlighting: Literal types[0m
+     36. 鉁?[32mHighlighting: Table literal with various types[0m
+     37. 鉁?[32mHighlighting: Complex union types[0m
+     38. 鉁?[32mHighlighting: Array types[0m
+     39. 鉁?[32mHighlighting: Function types[0m
+     40. 鉁?[32mHighlighting: Generic types[0m
+  identifiers:
+     41. 鉁?[32mIdentifier with hyphen[0m
+     42. 鉁?[32mIdentifier with multiple hyphens[0m
+     43. 鉁?[32mIdentifier with dots and hyphens[0m
+     44. 鉁?[32mType with hyphen in union[0m
+     45. 鉁?[32mAlias with hyphenated name and table fields[0m
+     46. 鉁?[32mGeneric with hyphenated name[0m
+  lua_comments:
+     47. 鉁?[32mLua comment prefix with triple dash[0m
+     48. 鉁?[32mLua comment prefix with single dash[0m
+     49. 鉁?[32mLua comment prefix with double dash[0m
+     50. 鉁?[32mType continuation basic[0m
+     51. 鉁?[32mType continuation with param[0m
+     52. 鉁?[32mWithout comment prefix[0m
+  multiple_returns_and_indexed_tables:
+     53. 鉁?[32mMultiple return values[0m
+     54. 鉁?[32mMultiple returns without names[0m
+     55. 鉁?[31mMultiple returns with description[0m
+     56. 鉁?[32mTable with numeric index[0m
+     57. 鉁?[32mTable with type index[0m
+     58. 鉁?[32mMixed table fields[0m
+     59. 鉁?[32mTable with union type index[0m
+  new_features:
+     60. 鉁?[32mInterface annotation[0m
+     61. 鉁?[32mEnum with fields[0m
+     62. 鉁?[32mAsync function type[0m
+     63. 鉁?[32mNamespace annotation[0m
+     64. 鉁?[32mUsing annotation[0m
+     65. 鉁?[32mReadonly annotation[0m
+     66. 鉁?[32mAs annotation[0m
+     67. 鉁?[32mAttribute definition[0m
+     68. 鉁?[31mAttribute use on field[0m
+     69. 鉁?[32mKeyof type operator[0m
+     70. 鉁?[32mOperator with parameters[0m
+     71. 鉁?[31mLanguage annotation[0m
+     72. 鉁?[32mExport annotation[0m
+  text_line_extra1:
+     73. 鉁?[32mText line with leading spaces[0m
+  text_line_extra2:
+     74. 鉁?[32mLine starts with at-sign (annotation)[0m
+  text_line_extra3:
+     75. 鉁?[32mTriple dash followed by text[0m
+  text_line_extra4:
+     76. 鉁?[32mText with @ in the middle[0m
+  text_line_extra5:
+     77. 鉁?[32mTriple dash immediately followed by @ (annotation)[0m
+  text_line_test:
+     78. 鉁?[32mText line not starting with comment or @[0m
+     79. 鉁?[32mMultiple text lines and annotations[0m
+     80. 鉁?[32mText line with @ in the middle[0m
+  tuples:
+     81. 鉁?[32mBasic tuple type[0m
+     82. 鉁?[32mTriple element tuple[0m
+     83. 鉁?[32mTuple in param[0m
+     84. 鉁?[32mTuple in return[0m
+     85. 鉁?[32mNested tuple[0m
+     86. 鉁?[32mTuple with trailing comma[0m
+     87. 鉁?[32mTuple with union types[0m
+     88. 鉁?[32mTuple array[0m
+
+5 failures:
+
+correct / [32mexpected[0m / [31munexpected[0m
+
+  1. Return with name and description:
+
+    (source
+      (annotation
+        (comment_prefix)
+        (return_annotation
+[31m          (ERROR
+[0m[31m            (return_value
+[0m[31m              type: (return_type_annotation
+[0m[31m                (type_list
+[0m[31m                  (type
+[0m[31m                    (primary_type
+[0m[31m                      (basic_type
+[0m[31m                        (identifier))))))
+[0m[31m              name: (identifier)))
+[0m          (return_value
+            type: (return_type_annotation
+              (type_list
+                (type
+                  (primary_type
+                    (basic_type
+                      (identifier))))))
+[31m            name: (identifier))))
+[0m[32m            name: (identifier)
+[0m[32m            description: (description))))
+[0m      (annotation
+        (comment_prefix)
+        (return_annotation
+[31m          (ERROR
+[0m[31m            (return_value
+[0m[31m              type: (return_type_annotation
+[0m[31m                (type_list
+[0m[31m                  (type
+[0m[31m                    (primary_type
+[0m[31m                      (basic_type
+[0m[31m                        (identifier))))
+[0m[31m                  (type
+[0m[31m                    (primary_type
+[0m[31m                      (literal_type)))))
+[0m[31m              name: (identifier)))
+[0m          (return_value
+            type: (return_type_annotation
+              (type_list
+                (type
+                  (primary_type
+                    (basic_type
+[31m                      (identifier))))))
+[0m[31m            name: (identifier)))))[0m
+[32m                      (identifier))))
+[0m[32m                (type
+[0m[32m                  (primary_type
+[0m[32m                    (literal_type)))))
+[0m[32m            name: (identifier)
+[0m[32m            description: (description)))))[0m
+
+
+  2. Deprecated with description:
+
+    (source
+      (annotation
+        (comment_prefix)
+[31m        (deprecated_annotation))
+[0m[31m      (ERROR
+[0m[31m        (identifier)
+[0m[31m        (identifier)
+[0m[31m        (identifier)))[0m
+[32m        (deprecated_annotation
+[0m[32m          description: (description))))[0m
+
+
+  3. Multiple returns with description:
+
+    (source
+      (annotation
+        (comment_prefix)
+        (return_annotation
+          (return_value
+            type: (return_type_annotation
+              (type_list
+                (type
+                  (primary_type
+                    (basic_type
+                      (identifier))))))
+            name: (identifier))
+          (return_value
+            type: (return_type_annotation
+              (type_list
+                (type
+                  (primary_type
+                    (basic_type
+                      (identifier))))))
+[31m            name: (identifier))))
+[0m[31m      (ERROR
+[0m[31m        (identifier)
+[0m[31m        (identifier)))[0m
+[32m            name: (identifier)
+[0m[32m            description: (description)))))[0m
+
+
+  4. Attribute use on field:
+
+    (source
+      (annotation
+        (comment_prefix)
+        (field_annotation
+          name: (field_name)
+          type: (type_annotation_value
+            (type_list
+              (type
+                (primary_type
+                  (basic_type
+                    (identifier))))))))
+      (annotation
+        (comment_prefix)
+        (attribute_use
+          attributes: (attribute_use_list
+            (attribute_use_item
+[31m              name: (identifier))))))[0m
+[32m              name: (identifier)))))))[0m
+
+
+  5. Language annotation:
+
+    (source
+      (annotation
+        (comment_prefix)
+        (language_annotation
+[31m          language: (identifier)))
+[0m[31m      (ERROR
+[0m[31m        (number)))[0m
+[32m          language: (identifier)
+[0m[32m          description: (description))))[0m
+

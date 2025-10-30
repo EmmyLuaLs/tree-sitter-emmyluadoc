@@ -22,12 +22,12 @@ module.exports = grammar({
     // Plain text line (handled by external scanner)
     // Matches lines that don't start with valid annotation patterns
 
-    // Lua comment prefix
-    comment_prefix: $ => token(prec(-1, /-{1,3}[ \t]*/)),
+    // Lua comment prefix (must be exactly three dashes, optionally followed by space)
+    comment_prefix: $ => token(/-{3}[ \t]*/),
 
-    // Annotation
+    // Annotation (must have comment_prefix followed by @ or @[)
     annotation: $ => seq(
-      optional($.comment_prefix),
+      $.comment_prefix,
       choice(
         $.class_annotation,
         $.field_annotation,
@@ -35,7 +35,6 @@ module.exports = grammar({
         $.param_annotation,
         $.return_annotation,
         $.generic_annotation,
-        $.vararg_annotation,
         $.overload_annotation,
         $.deprecated_annotation,
         $.see_annotation,
@@ -54,6 +53,14 @@ module.exports = grammar({
         $.diagnostic_annotation,
         $.operator_annotation,
         $.source_annotation,
+        $.namespace_annotation,
+        $.using_annotation,
+        $.export_annotation,
+        $.language_annotation,
+        $.attribute_annotation,
+        $.readonly_annotation,
+        $.as_annotation,
+        $.attribute_use,
       )
     ),
 
@@ -73,7 +80,7 @@ module.exports = grammar({
 
     // @class annotation
     class_annotation: $ => seq(
-      '@class',
+      choice('@class', '@interface'),
       optional(field('modifier', choice(
         seq('(', 'exact', ')'),
         seq('(', 'partial', ')'),
@@ -103,7 +110,7 @@ module.exports = grammar({
         seq(
           field('name', $.field_name),
           field('type', $.type_annotation_value),
-          optional(field('description', $.description))
+    
         ),
         // Index signature: [access] [key_type] value_type [description]
         seq(
@@ -111,7 +118,7 @@ module.exports = grammar({
           field('key_type', $.type),
           ']',
           field('value_type', $.type),
-          optional(field('description', $.description))
+    
         )
       )
     ),
@@ -133,7 +140,7 @@ module.exports = grammar({
       '@param',
       field('name', $.param_name),
       field('type', $.type_annotation_value),
-      optional(field('description', $.description))
+
     ),
 
     // Parameter name (can have optional marker or vararg marker, supports hyphens and dots)
@@ -153,7 +160,7 @@ module.exports = grammar({
     return_value: $ => seq(
       field('type', $.return_type_annotation),
       optional(field('name', $.identifier)),
-      optional(field('description', $.description))
+
     ),
 
     // @generic annotation
@@ -161,12 +168,6 @@ module.exports = grammar({
       '@generic',
       field('name', $.identifier),
       optional(seq(':', field('constraint', $.type_annotation_value)))
-    ),
-
-    // @vararg annotation
-    vararg_annotation: $ => seq(
-      '@vararg',
-      field('type', $.type_annotation_value)
     ),
 
     // @overload annotation
@@ -178,14 +179,14 @@ module.exports = grammar({
     // @deprecated annotation
     deprecated_annotation: $ => seq(
       '@deprecated',
-      optional(field('description', $.description))
+
     ),
 
     // @see annotation
     see_annotation: $ => seq(
       '@see',
       field('reference', $.identifier),
-      optional(field('description', $.description))
+
     ),
 
     // @alias annotation
@@ -241,7 +242,7 @@ module.exports = grammar({
     version_annotation: $ => seq(
       '@version',
       field('version', choice($.identifier, $.string, $.version_range)),
-      optional(field('description', $.description))
+
     ),
 
     // Version range (e.g. >=5.1, <5.4)
@@ -263,6 +264,11 @@ module.exports = grammar({
       '(',
       field('op', $.operator),
       ')',
+      optional(seq(
+        '(',
+        optional(field('params', $.param_list)),
+        ')'
+      )),
       optional(seq(':', field('return_type', $.type_annotation_value)))
     ),
 
@@ -270,6 +276,101 @@ module.exports = grammar({
     source_annotation: $ => seq(
       '@source',
       field('source', $.string)
+    ),
+
+    // @namespace annotation
+    namespace_annotation: $ => seq(
+      '@namespace',
+      field('name', $.identifier),
+
+    ),
+
+    // @using annotation
+    using_annotation: $ => seq(
+      '@using',
+      field('path', choice($.identifier, $.string)),
+
+    ),
+
+    // @export annotation
+    export_annotation: $ => '@export',
+
+    // @language annotation
+    language_annotation: $ => seq(
+      '@language',
+      field('language', $.identifier),
+
+    ),
+
+    // @attribute annotation (for defining custom attributes)
+    attribute_annotation: $ => seq(
+      '@attribute',
+      field('name', $.identifier),
+      optional(seq(
+        '(',
+        optional(field('params', $.attribute_params)),
+        ')'
+      )),
+
+    ),
+
+    // Attribute parameters
+    attribute_params: $ => seq(
+      $.attribute_param,
+      repeat(seq(',', $.attribute_param))
+    ),
+
+    // Attribute parameter
+    attribute_param: $ => seq(
+      field('name', $.identifier),
+      optional(seq(':', field('type', $.type)))
+    ),
+
+    // @[...] attribute use (for annotating other tags with attributes)
+    attribute_use: $ => seq(
+      '@[',
+      field('attributes', $.attribute_use_list),
+      ']'
+    ),
+
+    // Attribute use list
+    attribute_use_list: $ => seq(
+      $.attribute_use_item,
+      repeat(seq(',', $.attribute_use_item))
+    ),
+
+    // Single attribute use
+    attribute_use_item: $ => seq(
+      field('name', $.identifier),
+      optional(seq(
+        '(',
+        optional(field('args', $.attribute_args)),
+        ')'
+      ))
+    ),
+
+    // Attribute arguments
+    attribute_args: $ => seq(
+      $.attribute_arg,
+      repeat(seq(',', $.attribute_arg))
+    ),
+
+    // Attribute argument (can be literal or identifier)
+    attribute_arg: $ => choice(
+      $.string,
+      $.number,
+      $.boolean,
+      $.identifier
+    ),
+
+    // @readonly annotation
+    readonly_annotation: $ => '@readonly',
+
+    // @as annotation (for type casting expressions)
+    as_annotation: $ => seq(
+      '@as',
+      field('type', $.type_annotation_value),
+
     ),
 
     // Type annotation value
@@ -282,18 +383,21 @@ module.exports = grammar({
     param_type_annotation: $ => $.type_list,
 
     // Type list
-    type_list: $ => prec.left(1, seq(
+    type_list: $ => prec.left(2, seq(
       $.type,
-      repeat(prec.left(1, seq('|', $.type)))
+      repeat(prec.left(2, seq('|', $.type)))
     )),
 
     // Type
     type: $ => prec.left(choice(
       $.array_type,
+      $.conditional_type,
+      $.binary_type,
+      $.unary_type,
       $.primary_type
     )),
 
-    // Primary type (excluding arrays)
+    // Primary type (excluding arrays and operators)
     primary_type: $ => choice(
       $.basic_type,
       $.table_type,
@@ -302,7 +406,8 @@ module.exports = grammar({
       $.generic_type,
       $.literal_type,
       $.parenthesized_type,
-      $.tuple_type
+      $.tuple_type,
+      $.template_type
     ),
 
     // Basic type
@@ -358,6 +463,7 @@ module.exports = grammar({
 
     // Function type
     function_type: $ => seq(
+      optional('async'),
       'fun',
       '(',
       optional(field('params', $.param_list)),
@@ -421,6 +527,50 @@ module.exports = grammar({
       optional(',')  // Support trailing comma
     ),
 
+    // Conditional type: condition and true_type or false_type
+    conditional_type: $ => prec.left(2, seq(
+      field('condition', $.type),
+      'and',
+      field('true_type', $.type),
+      'or',
+      field('false_type', $.type)
+    )),
+
+    // Binary type: union (|), intersection (&), extends, in
+    binary_type: $ => prec.left(choice(
+      seq(
+        field('left', $.primary_type),
+        field('op', choice('&', 'extends', 'in')),
+        field('right', $.primary_type)
+      )
+    )),
+
+    // Unary type: keyof, typeof
+    unary_type: $ => prec(3, seq(
+      field('op', choice('keyof', 'typeof')),
+      field('argument', $.primary_type)
+    )),
+
+    // Template type: `literal ${Type} literal`
+    template_type: $ => seq(
+      '`',
+      repeat(choice(
+        $.template_chars,
+        $.template_substitution
+      )),
+      '`'
+    ),
+
+    // Template characters
+    template_chars: $ => token(prec(-1, /[^`$]+|\$[^{]/)),
+
+    // Template substitution
+    template_substitution: $ => seq(
+      '${',
+      field('type', $.type),
+      '}'
+    ),
+
     // Diagnostic list
     diagnostic_list: $ => seq(
       $.identifier,
@@ -435,7 +585,8 @@ module.exports = grammar({
       'len',
       'eq', 'lt', 'le',
       'unm',
-      'bnot', 'band', 'bor', 'bxor', 'shl', 'shr'
+      'bnot', 'band', 'bor', 'bxor', 'shl', 'shr',
+      'index'  // For __index metamethod
     ),
 
     // Identifier (supports letters, numbers, underscores, dots and hyphens)
@@ -454,9 +605,6 @@ module.exports = grammar({
     boolean: $ => choice('true', 'false'),
 
     // Description (must be on the same line, preceded by space, cannot start with | or ,)
-    description: $ => token(prec(-1, seq(
-      /[ \t]+/,  // Must have at least one space/tab before description
-      /[^|\n\r,][^\n\r]*/
-    )))
+    description: $ => token(prec(-1, /[^|\n\r,][^\n\r]*/))
   }
 });
