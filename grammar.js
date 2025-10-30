@@ -62,6 +62,7 @@ module.exports = grammar({
         $.readonly_annotation,
         $.as_annotation,
         $.attribute_use,
+        $.other_annotation,  // Fallback for unknown annotations
       )
     ),
 
@@ -383,6 +384,15 @@ module.exports = grammar({
       optional(field('description', $.description))
     ),
 
+    // Fallback for unknown/other annotations
+    other_annotation: $ => seq(
+      field('tag', $.tag_name),
+      optional(field('description', $.description))
+    ),
+
+    // Tag name for other annotations
+    tag_name: $ => token(/@[a-zA-Z_][a-zA-Z0-9_\-]*/),
+
     // Type annotation value
     type_annotation_value: $ => $.type_list,
 
@@ -478,7 +488,10 @@ module.exports = grammar({
       '(',
       optional(field('params', $.param_list)),
       ')',
-      optional(seq(':', field('return', $.type_list)))
+      optional(seq(':', field('return', choice(
+        $.type_list,
+        $.return_type_list  // Support comma-separated return types
+      ))))
     ),
 
     // Parameter list
@@ -487,9 +500,15 @@ module.exports = grammar({
       repeat(seq(',', $.param_def))
     ),
 
+    // Return type list (comma-separated for multiple returns)
+    return_type_list: $ => prec.left(seq(
+      $.type,
+      repeat(seq(',', $.type))
+    )),
+
     // Parameter definition
     param_def: $ => seq(
-      field('name', $.identifier),
+      field('name', choice($.identifier, '...')),
       optional(seq(':', field('type', $.type))),
       optional('?')
     ),

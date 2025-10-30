@@ -26,6 +26,9 @@
 "@attribute" @keyword
 "@as" @keyword
 
+; Other/unknown annotations
+(tag_name) @keyword
+
 ; Special annotation nodes
 (deprecated_annotation) @keyword
 (private_annotation) @keyword

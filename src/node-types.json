@@ -124,6 +124,10 @@
           "named": true
         },
         {
+          "type": "other_annotation",
+          "named": true
+        },
+        {
           "type": "overload_annotation",
           "named": true
         },
@@ -784,6 +788,10 @@
         "required": false,
         "types": [
           {
+            "type": "return_type_list",
+            "named": true
+          },
+          {
             "type": "type_list",
             "named": true
           }
@@ -1011,6 +1019,32 @@
     }
   },
   {
+    "type": "other_annotation",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
+      "tag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "tag_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "overload_annotation",
     "named": true,
     "fields": {
@@ -1070,6 +1104,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "...",
+            "named": false
+          },
           {
             "type": "identifier",
             "named": true
@@ -1190,6 +1228,21 @@
       "types": [
         {
           "type": "type_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return_type_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -1671,6 +1724,10 @@
     "named": false
   },
   {
+    "type": "...",
+    "named": false
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -2021,6 +2078,10 @@
   {
     "type": "table",
     "named": false
+  },
+  {
+    "type": "tag_name",
+    "named": true
   },
   {
     "type": "template_chars",
